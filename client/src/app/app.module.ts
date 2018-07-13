@@ -8,6 +8,9 @@ import { AppComponent } from './app.component';
 import { HeroesComponent } from './heroes/heroes.component';
 import { HeroDetailComponent } from './hero-detail/hero-detail.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { ChickensComponent } from './chickens/chickens.component';
+
+import { ChickenService } from './chicken.service';
 //import { TanComponent } from './tan/tan.component';
 
 
@@ -17,6 +20,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     HeroesComponent,
     HeroDetailComponent,
     DashboardComponent,
+    ChickensComponent
     //TanComponent
   ],
   imports: [
@@ -25,7 +29,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     AppRoutingModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [ChickenService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

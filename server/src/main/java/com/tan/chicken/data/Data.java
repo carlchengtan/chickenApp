@@ -3,7 +3,7 @@ package com.tan.chicken.data;
 import java.math.BigDecimal;
 import java.util.Locale;
 
-import javax.annotation.PostConstruct;
+//import javax.annotation.PostConstruct;
 
 import org.joda.time.LocalDate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,36 +25,14 @@ public class Data {
 	@Autowired
 	private OwnerRepository ownerRepository;	
 	
-	@PostConstruct
+	//@PostConstruct
 	public void init() {
 
 		Owner owner1 = new Owner(OwnerType.OWNER);
 		
-//		FeedDetail feed1 = 
-//			new FeedDetail().builder()
-//				.name("SuperFeed")
-//				.feedAmount(2)
-//				.dailyRotation(new LocalDate(2018, 1, 1).toDate())
-//			.build();
-//
-//		MedicalRecord med1 = 
-//			new MedicalRecord().builder()
-//				.vaccineDate(new LocalDate(2018, 3, 3).toDate())
-//				.vaccineType("SuperVaccine")
-//			.build();
-//					
-//		Sickness sickness1 = 
-//			new Sickness().builder()
-//				.sicknessType("Pneumonia")
-//				.diagnosisDate(new LocalDate(2018, 4, 4).toDate())
-//			.build();
 		FeedDetail feed1 = new FeedDetail("SuperFeed", 2, new LocalDate(2018, 1, 1).toDate());
 		MedicalRecord med1 = new MedicalRecord(new LocalDate(2018, 2, 2).toDate(), "VaccineEX");
 		Sickness sickness1 = new Sickness("Pneumonia", new LocalDate(2018, 3, 3).toDate());
-		
-//		log.info("#####"+feed1.toString());
-//		log.info("#####"+med1.toString());
-//		log.info("#####"+sickness1.toString());
 		
 		Locale obj = new Locale("", "US");
 		String originCountry = obj.getCountry();
@@ -81,10 +59,6 @@ public class Data {
 		owner1.addChicken(chicken1);
 		
 		ownerRepository.save(owner1);
-//		log.info("#####"+feed1.toString());
-//		log.info("#####"+med1.toString());
-//		log.info("#####"+sickness1.toString());
-		//log.info("#####"+owner1.toString());
 	}
 	
 }
