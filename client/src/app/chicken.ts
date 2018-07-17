@@ -1,11 +1,10 @@
 export class Chicken{
-	id: number;
+	name: String;
 	gender: String;
 	modeOfTransportation: String;
 	birthday: Date;
 	dateOfExit: Date;
 	dateOfEntry: Date;
-	owner: String;
 	weight: number;
 	originCountry: String;
 	pedigree: String;
@@ -15,14 +14,32 @@ export class Chicken{
 	stopovers: String;
 	locationOfEntry: String;
 
-	/*
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	private Set<MedicalRecord> medicalRecords = new HashSet<MedicalRecord>();
-	
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	private Set<Sickness> sicknesses = new HashSet<Sickness>();
-	
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	private Set<FeedDetail> feedDetails = new HashSet<FeedDetail>();
-	*/
+	owner: Owner;
+	pastOwners: Owner[];
+
+	medicalRecords: MedicalRecord[];
+	feedDetails: FeedDetail[];
+	sicknesses: Sickness[];
+}
+
+export class Owner{
+	name: String;
+	ownerType: String;
+	chickens: Chicken[];
+}
+
+export class FeedDetail{
+	name: String;
+	feedAmount: number;
+	dailyRotation: Date;
+}
+
+export class MedicalRecord{
+	vaccineDate: Date;
+	vaccineType: String;
+}
+
+export class Sickness{
+	sicknessType: String;
+	diagnosisDate: Date;
 }

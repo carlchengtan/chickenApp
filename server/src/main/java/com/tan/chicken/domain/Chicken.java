@@ -18,14 +18,15 @@ import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Entity
 //@NoArgsConstructor
 //@AllArgsConstructor
 //@Data
+
 public class Chicken {
 	
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -53,11 +54,15 @@ public class Chicken {
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Set<FeedDetail> feedDetails = new HashSet<FeedDetail>();
 
-	@JsonManagedReference
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private Set<Owner> pastOwners = new HashSet<Owner>();
+	
+	@JsonBackReference
 	@ManyToOne(cascade = CascadeType.PERSIST,fetch = FetchType.LAZY)
 	private Owner owner;
 	
 	private BigDecimal weight;
+	private String name;
 	private String originCountry;
 	private String pedigree;
 	private String approvedBy;
@@ -70,11 +75,12 @@ public class Chicken {
 		super();
 	}
 	
-	public Chicken(Gender gender, ModeOfTransportation modeOfTransportation, Date birthday, Date dateOfExit,
+	public Chicken(Gender gender, String name, ModeOfTransportation modeOfTransportation, Date birthday, Date dateOfExit,
 			Date dateOfEntry, Owner owner, BigDecimal weight, String originCountry, String pedigree, String approvedBy,
 			String shipper, String seller, String stopovers, String locationOfEntry) {
 		super();
 		this.gender = gender;
+		this.name = name;
 		this.modeOfTransportation = modeOfTransportation;
 		this.birthday = birthday;
 		this.dateOfExit = dateOfExit;
@@ -90,12 +96,13 @@ public class Chicken {
 		this.locationOfEntry = locationOfEntry;
 	}
 
-	public Chicken(Gender gender, ModeOfTransportation modeOfTransportation, Date birthday, Date dateOfExit,
-			Date dateOfEntry, Set<MedicalRecord> medicalRecords, Set<Sickness> sicknesses, Set<FeedDetail> feedDetails,
+	public Chicken(Gender gender, String name, ModeOfTransportation modeOfTransportation, Date birthday, Date dateOfExit,
+			Date dateOfEntry, Set<MedicalRecord> medicalRecords, Set<Sickness> sicknesses, Set<FeedDetail> feedDetails, Set<Owner> pastOwners,
 			Owner owner, BigDecimal weight, String originCountry, String pedigree, String approvedBy, String shipper,
 			String seller, String stopovers, String locationOfEntry) {
 		super();
 		this.gender = gender;
+		this.name = name;
 		this.modeOfTransportation = modeOfTransportation;
 		this.birthday = birthday;
 		this.dateOfExit = dateOfExit;
@@ -103,6 +110,7 @@ public class Chicken {
 		this.medicalRecords = medicalRecords;
 		this.sicknesses = sicknesses;
 		this.feedDetails = feedDetails;
+		this.pastOwners = pastOwners;
 		this.owner = owner;
 		this.weight = weight;
 		this.originCountry = originCountry;
@@ -124,6 +132,19 @@ public class Chicken {
 	
 	public void addSickness(Sickness sickness) {
 		this.sicknesses.add(sickness);
+	}
+
+	public void changeOwner(Owner newOwner) {
+		this.pastOwners.add(this.owner);
+		this.owner = newOwner;
+	}	
+	
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public Gender getGender() {
@@ -197,6 +218,14 @@ public class Chicken {
 	public void setOwner(Owner owner) {
 		this.owner = owner;
 	}
+	
+	public Set<Owner> getPastOwners() {
+		return pastOwners;
+	}
+
+	public void setPastOwners(Set<Owner> pastOwners) {
+		this.pastOwners = pastOwners;
+	}
 
 	public BigDecimal getWeight() {
 		return weight;
@@ -265,12 +294,17 @@ public class Chicken {
 	public Long getId() {
 		return id;
 	}
+	
+	public void setId(Long id) {
+		this.id = id;
+	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		return result;
 	}
 
@@ -288,6 +322,11 @@ public class Chicken {
 				return false;
 		} else if (!id.equals(other.id))
 			return false;
+		if (name == null) {
+			if (other.name != null)
+				return false;
+		} else if (!name.equals(other.name))
+			return false;
 		return true;
 	}
 
@@ -296,9 +335,10 @@ public class Chicken {
 		return "Chicken [id=" + id + ", gender=" + gender + ", modeOfTransportation=" + modeOfTransportation
 				+ ", birthday=" + birthday + ", dateOfExit=" + dateOfExit + ", dateOfEntry=" + dateOfEntry
 				+ ", medicalRecords=" + medicalRecords + ", sicknesses=" + sicknesses + ", feedDetails=" + feedDetails
-				+ ", owner=" + owner + ", weight=" + weight + ", originCountry=" + originCountry + ", pedigree="
-				+ pedigree + ", approvedBy=" + approvedBy + ", shipper=" + shipper + ", seller=" + seller
-				+ ", stopovers=" + stopovers + ", locationOfEntry=" + locationOfEntry + "]";
+				+ ", pastOwners=" + pastOwners + ", owner=" + owner + ", weight=" + weight + ", name=" + name
+				+ ", originCountry=" + originCountry + ", pedigree=" + pedigree + ", approvedBy=" + approvedBy
+				+ ", shipper=" + shipper + ", seller=" + seller + ", stopovers=" + stopovers + ", locationOfEntry="
+				+ locationOfEntry + "]";
 	}
 	
 }

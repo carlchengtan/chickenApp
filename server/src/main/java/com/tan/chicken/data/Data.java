@@ -3,6 +3,8 @@ package com.tan.chicken.data;
 import java.math.BigDecimal;
 import java.util.Locale;
 
+import javax.annotation.PostConstruct;
+
 //import javax.annotation.PostConstruct;
 
 import org.joda.time.LocalDate;
@@ -25,10 +27,10 @@ public class Data {
 	@Autowired
 	private OwnerRepository ownerRepository;	
 	
-	//@PostConstruct
+	@PostConstruct
 	public void init() {
 
-		Owner owner1 = new Owner(OwnerType.OWNER);
+		Owner owner1 = new Owner("John", OwnerType.OWNER);
 		
 		FeedDetail feed1 = new FeedDetail("SuperFeed", 2, new LocalDate(2018, 1, 1).toDate());
 		MedicalRecord med1 = new MedicalRecord(new LocalDate(2018, 2, 2).toDate(), "VaccineEX");
@@ -39,6 +41,7 @@ public class Data {
 		
 		Chicken chicken1 = new Chicken();
 				chicken1.setGender(Gender.MALE);
+				chicken1.setName("Pedro");
 				chicken1.setModeOfTransportation(ModeOfTransportation.AIR);
 				chicken1.setBirthday(new LocalDate(2018, 1, 1).toDate());
 				chicken1.setDateOfExit(new LocalDate(2018, 1, 2).toDate());
@@ -55,8 +58,64 @@ public class Data {
 		chicken1.addFeedDetail(feed1);
 		chicken1.addMedicalRecord(med1);
 		chicken1.addSickness(sickness1);
+
+		Sickness sickness2 = new Sickness("Fever", new LocalDate(2018, 3, 3).toDate());
+		FeedDetail feed2 = new FeedDetail("MegaFeed", 2, new LocalDate(2018, 1, 1).toDate());
+		MedicalRecord med2 = new MedicalRecord(new LocalDate(2018, 2, 2).toDate(), "Morphine");
+		
+		Locale obj2 = new Locale("", "CA");
+		String originCountry2 = obj2.getCountry();
+
+		Chicken chicken2 = new Chicken();
+				chicken2.setGender(Gender.FEMALE);
+				chicken2.setName("Jane");
+				chicken2.setModeOfTransportation(ModeOfTransportation.SEA);
+				chicken2.setBirthday(new LocalDate(2018, 4, 5).toDate());
+				chicken2.setDateOfExit(new LocalDate(2018, 6, 7).toDate());
+				chicken2.setDateOfEntry(new LocalDate(2018, 8, 9).toDate());
+				chicken2.setOwner(owner1);
+				chicken2.setWeight(new BigDecimal(8L));
+				chicken2.setOriginCountry(originCountry2);
+				chicken2.setPedigree("Feathered Chicken");
+				chicken2.setApprovedBy("Maria");
+				chicken2.setShipper("Xend");
+				chicken2.setSeller("Mcdo");
+				chicken2.setStopovers("California");
+				chicken2.setLocationOfEntry("NAIA Gate 2");
+		chicken2.addFeedDetail(feed2);
+		chicken2.addMedicalRecord(med2);
+		chicken2.addSickness(sickness2);
+		
+		FeedDetail feed3 = new FeedDetail("UltraFeed", 2, new LocalDate(2018, 1, 1).toDate());
+		MedicalRecord med3 = new MedicalRecord(new LocalDate(2018, 2, 2).toDate(), "Antivirus");
+		Sickness sickness3 = new Sickness("Cough", new LocalDate(2018, 3, 3).toDate());
+	
+		Locale obj3 = new Locale("", "GB");
+		String originCountry3 = obj3.getCountry();
+
+		Chicken chicken3 = new Chicken();
+				chicken3.setGender(Gender.MALE);
+				chicken3.setName("Juan");
+				chicken3.setModeOfTransportation(ModeOfTransportation.AIR);
+				chicken3.setBirthday(new LocalDate(2018, 2, 3).toDate());
+				chicken3.setDateOfExit(new LocalDate(2018, 4, 5).toDate());
+				chicken3.setDateOfEntry(new LocalDate(2018, 6, 7).toDate());
+				chicken3.setOwner(owner1);
+				chicken3.setWeight(new BigDecimal(6L));
+				chicken3.setOriginCountry(originCountry3);
+				chicken3.setPedigree("Long-legged Chicken");
+				chicken3.setApprovedBy("Alex");
+				chicken3.setShipper("UPS");
+				chicken3.setSeller("KFC");
+				chicken3.setStopovers("India");
+				chicken3.setLocationOfEntry("NAIA Gate 5");
+		chicken3.addFeedDetail(feed3);
+		chicken3.addMedicalRecord(med3);
+		chicken3.addSickness(sickness3);
 		
 		owner1.addChicken(chicken1);
+		owner1.addChicken(chicken2);
+		owner1.addChicken(chicken3);
 		
 		ownerRepository.save(owner1);
 	}

@@ -5,7 +5,8 @@ import java.util.Optional;
 
 import com.tan.chicken.domain.Chicken;
 public interface IChickenService {
-	public List<Chicken> getChickens();
-	public Optional<Chicken> getChicken(Long id);
-	public Chicken saveChicken(Chicken chicken);
+	public List<Chicken> findAll();
+	public Optional<Chicken> findById(Long id);
+	public Chicken save(Chicken chicken);
+	public void deleteById(Long id);
 }

@@ -1,9 +1,14 @@
-<h2>Chickens</h2>
 
 <ul class="chickens">
 	<li *ngFor="let chicken of chickens">
-		<a routerLink="/detail/{{chicken.id}}">
-			<span class="badge">{{chicken.id}}</span> {{chicken.gender}}
+		<a routerLink="/chicken-edit/{{chicken.id}}">
+			<span class="badge">{{chicken.id}}</span> 
+			<span class="capitalize">{{chicken.name}}</span> 
+			{{"(" + chicken.pedigree +")"}}
 		</a>
 	</li>
 </ul>
+
+<nav>
+	<a routerLink="/chicken-create">Add</a>
+</nav>

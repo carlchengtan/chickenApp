@@ -62,7 +62,9 @@ public class Sickness {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + ((diagnosisDate == null) ? 0 : diagnosisDate.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((sicknessType == null) ? 0 : sicknessType.hashCode());
 		return result;
 	}
 
@@ -75,10 +77,20 @@ public class Sickness {
 		if (getClass() != obj.getClass())
 			return false;
 		Sickness other = (Sickness) obj;
+		if (diagnosisDate == null) {
+			if (other.diagnosisDate != null)
+				return false;
+		} else if (!diagnosisDate.equals(other.diagnosisDate))
+			return false;
 		if (id == null) {
 			if (other.id != null)
 				return false;
 		} else if (!id.equals(other.id))
+			return false;
+		if (sicknessType == null) {
+			if (other.sicknessType != null)
+				return false;
+		} else if (!sicknessType.equals(other.sicknessType))
 			return false;
 		return true;
 	}

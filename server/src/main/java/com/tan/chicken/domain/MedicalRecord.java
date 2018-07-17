@@ -63,6 +63,8 @@ public class MedicalRecord {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((vaccineDate == null) ? 0 : vaccineDate.hashCode());
+		result = prime * result + ((vaccineType == null) ? 0 : vaccineType.hashCode());
 		return result;
 	}
 
@@ -79,6 +81,16 @@ public class MedicalRecord {
 			if (other.id != null)
 				return false;
 		} else if (!id.equals(other.id))
+			return false;
+		if (vaccineDate == null) {
+			if (other.vaccineDate != null)
+				return false;
+		} else if (!vaccineDate.equals(other.vaccineDate))
+			return false;
+		if (vaccineType == null) {
+			if (other.vaccineType != null)
+				return false;
+		} else if (!vaccineType.equals(other.vaccineType))
 			return false;
 		return true;
 	}

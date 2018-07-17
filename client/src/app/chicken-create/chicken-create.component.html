@@ -1,0 +1,83 @@
+<h2>NEW CHICKEN</h2> 
+
+<div class = 'row'>
+  <form (ngSubmit)="onSubmit()">
+    <div class = 'column'>
+      Name: <br><input [(ngModel)]="chicken.name" name = "chickenName"/>  
+      <br><br>
+      
+      Gender:<br> 
+      <input type="radio" value="MALE" name="gender" [(ngModel)]="chicken.gender"> Male 
+      <input type="radio" value="FEMALE" name="gender" [(ngModel)]="chicken.gender"> Female
+      <br><br>
+
+      Weight:<br><input [(ngModel)]="chicken.weight" name = "weight"/>  
+      <br><br>
+      Pedigree: <br><input [(ngModel)]="chicken.pedigree" name = "pedigree"/>  
+      <br><br>
+      Birthday: <br><input type="Date" [(ngModel)]="chicken.birthday" name = "birthday"/>  
+      <br><br>
+
+      Mode of Transportation:<br>
+      <input type="radio" value="SEA" name="modeOfTransportation" [(ngModel)]="chicken.modeOfTransportation"> Sea
+      <input type="radio" value="AIR" name="modeOfTransportation" [(ngModel)]="chicken.modeOfTransportation"> Air
+      <br><br>
+
+      Date of Exit: <br><input type="Date" [(ngModel)]="chicken.dateOfExit" name = "dateOfExit"/>  
+      <br><br>
+      Date of Entry: <br><input type="Date" [(ngModel)]="chicken.dateOfEntry" name = "dateOfEntry"/>  
+      <br><br>
+      Origin Country: <br><input [(ngModel)]="chicken.originCountry" name = "originCountry"/>  
+      <br><br>
+      Approved by: <br><input [(ngModel)]="chicken.approvedBy" name = "approvedBy"/>  
+      <br><br>
+      Shipper: <br><input [(ngModel)]="chicken.shipper" name = "shipper"/>  
+      <br><br>
+      Seller: <br><input [(ngModel)]="chicken.seller" name = "seller"/>  
+      <br><br>
+      Stop Overs: <br><input [(ngModel)]="chicken.stopovers" name = "stopovers"/>  
+      <br><br>
+      Location of Entry: <br><input [(ngModel)]="chicken.locationOfEntry" name = "locationOfEntry"/>  
+      <br><br>
+
+      <h3> MEDICAL RECORDS </h3>
+      Vaccine Date: <br><input type="Date" [(ngModel)]="medicalTemp.vaccineDate" name = "vaccineDate"/>  
+      <br><br>
+      Vaccine Type: <br><input [(ngModel)]="medicalTemp.vaccineType" name = "vaccineType"/>  
+      <br><br>
+      <nav>
+        <a (click)="addMedicalRecord()">Add Medical Record</a>
+      </nav> 
+    </div>
+  </form>
+
+
+  <!-- 
+<h3>Medical Records</h3>
+      <div *ngFor="let medicalRecord of chicken.medicalRecords">
+        <h4>Medical Record {{medicalRecord.id}}</h4>
+        Vaccine Date:<input [(ngModel)]="medicalRecord.vaccineDate" name = "vaccineDate"/>  <br>
+        Vaccine Type:<input [(ngModel)]="medicalRecord.vaccineType" name = "vaccineType"/>  <br>
+      </div>
+
+      <h3>Sicknesses</h3>
+      <div *ngFor="let sickness of chicken.sicknesses">
+        <h4>Sickness {{sickness.id}}</h4>
+        Type:<input [(ngModel)]="sickness.sicknessType" name = "sicknessType"/>  <br>
+        Diagnosis Date:<input [(ngModel)]="sickness.diagnosisDate" name = "diagnosisDate"/>  <br>
+      </div>
+
+      <h3>Feed Details</h3>
+      <div *ngFor="let feedDetail of chicken.feedDetails">
+        <h4>Feed Detail {{feedDetail.id}}</h4>
+        Name:<input [(ngModel)]="feedDetail.name" name = "feedName"/>  <br>
+        Feed Amount:<input [(ngModel)]="feedDetail.feedAmount" name = "feedAmount"/>  <br>
+        Daily Rotation:<input [(ngModel)]="feedDetail.dailyRotation" name = "dailyRotation"/>  <br>
+      </div>
+    -->
+  </div>
+
+  <nav>
+    <a (click)="goBack()">Back</a>
+    <a (click)="save()">Save</a>
+  </nav>

@@ -13,7 +13,7 @@ public class ChickenNotFoundException extends Exception {
 
 	public ChickenNotFoundException(String arg0) {
 		super(arg0);
-		// TODO Auto-generated constructor stub
+		System.out.println("Chicken is not found with "+arg0);
 	}
 
 	public ChickenNotFoundException(Throwable arg0) {

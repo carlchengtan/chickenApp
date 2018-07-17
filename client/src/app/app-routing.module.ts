@@ -1,26 +1,32 @@
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 import { HeroesComponent } from './heroes/heroes.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { HeroDetailComponent } from './hero-detail/hero-detail.component';
 
 import { ChickensComponent } from './chickens/chickens.component';
+import { ChickenCreateComponent } from './chicken-create/chicken-create.component'
+import { ChickenEditComponent } from './chicken-edit/chicken-edit.component'
 
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 //import { TanComponent } from './tan/tan.component';
 
 const routes: Routes = [
-		{ path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+		{ path: '', redirectTo: 'chickens', pathMatch: 'full' },
 		{ path: 'heroes', component: HeroesComponent },
 		{ path: 'dashboard', component: DashboardComponent },
-		{ path: 'chickens', component: ChickensComponent },
 		{ path: 'detail/:id', component: HeroDetailComponent },
+		{ path: 'chickens', component: ChickensComponent },
+		//{ path: 'chicken-add', component: ChickenEditComponent },
+		{ path: 'chicken-create', component: ChickenCreateComponent },
+		{ path: 'chicken-edit/:id', component: ChickenEditComponent }
 		//{ path: 'tan', component: TanComponent },
 	];
 
 @NgModule({
-  imports: [ RouterModule.forRoot(routes) ],
+  imports: [ FormsModule, RouterModule.forRoot(routes) ],
   exports: [ RouterModule ],
 })
 

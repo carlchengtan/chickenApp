@@ -16,19 +16,24 @@ public class ChickenService implements IChickenService{
 	private ChickenRepository chickenRepository;
 	
 	@Override
-	public List<Chicken> getChickens() {
+	public List<Chicken> findAll() {
 		return chickenRepository.findAll();
 	}
 
 	@Override
-	public Optional<Chicken> getChicken(Long id) {
+	public Optional<Chicken> findById(Long id) {
 		return chickenRepository.findById(id);
 	}
 
 	@Override
-	public Chicken saveChicken(Chicken chicken) {
+	public Chicken save(Chicken chicken) {
 		return chickenRepository.save(chicken);
 		
+	}
+
+	@Override
+	public void deleteById(Long id) {
+		chickenRepository.deleteById(id);
 	}
 	
 }

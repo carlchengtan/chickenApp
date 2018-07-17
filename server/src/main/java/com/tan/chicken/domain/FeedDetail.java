@@ -71,7 +71,10 @@ public class FeedDetail {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + ((dailyRotation == null) ? 0 : dailyRotation.hashCode());
+		result = prime * result + feedAmount;
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		return result;
 	}
 
@@ -84,10 +87,22 @@ public class FeedDetail {
 		if (getClass() != obj.getClass())
 			return false;
 		FeedDetail other = (FeedDetail) obj;
+		if (dailyRotation == null) {
+			if (other.dailyRotation != null)
+				return false;
+		} else if (!dailyRotation.equals(other.dailyRotation))
+			return false;
+		if (feedAmount != other.feedAmount)
+			return false;
 		if (id == null) {
 			if (other.id != null)
 				return false;
 		} else if (!id.equals(other.id))
+			return false;
+		if (name == null) {
+			if (other.name != null)
+				return false;
+		} else if (!name.equals(other.name))
 			return false;
 		return true;
 	}

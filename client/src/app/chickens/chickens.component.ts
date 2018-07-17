@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Chicken } from '../chicken';
 import { ChickenService } from '../chicken.service';
 import { Observable } from 'rxjs';
 

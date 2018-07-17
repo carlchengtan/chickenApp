@@ -11,25 +11,32 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { ChickensComponent } from './chickens/chickens.component';
 
 import { ChickenService } from './chicken.service';
+import { ChickenEditComponent } from './chicken-edit/chicken-edit.component';
+import { ChickenCreateComponent } from './chicken-create/chicken-create.component';
+
+import { ReactiveFormsModule } from '@angular/forms';  
 //import { TanComponent } from './tan/tan.component';
 
 
 @NgModule({
   declarations: [
-    AppComponent,
-    HeroesComponent,
-    HeroDetailComponent,
-    DashboardComponent,
-    ChickensComponent
+  AppComponent,
+  HeroesComponent,
+  HeroDetailComponent,
+  DashboardComponent,
+  ChickensComponent,
+  ChickenEditComponent,
+  ChickenCreateComponent
     //TanComponent
-  ],
-  imports: [
+    ],
+    imports: [
     BrowserModule,
     FormsModule,
     AppRoutingModule,
-    HttpClientModule
-  ],
-  providers: [ChickenService],
-  bootstrap: [AppComponent]
-})
+    HttpClientModule,
+    ReactiveFormsModule
+    ],
+    providers: [ChickenService],
+    bootstrap: [AppComponent]
+  })
 export class AppModule { }

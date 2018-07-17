@@ -1,0 +1,55 @@
+<h2>{{chicken.name | uppercase}} DETAILS</h2>	
+
+<div class = 'row'>
+	<div class = 'column'>
+		<form (ngSubmit)="onSubmit()">
+			Name: <br><input [(ngModel)]="chicken.name" name = "chickenName"/>  <br>
+			Weight:<br><input [(ngModel)]="chicken.weight" name = "weight"/>  <br>
+
+			<h3>Medical Records</h3>
+			<div *ngFor="let medicalRecord of chicken.medicalRecords">
+				<h4>Medical Record {{medicalRecord.id}}</h4>
+				Vaccine Date:<input [(ngModel)]="medicalRecord.vaccineDate" name = "vaccineDate"/>  <br>
+				Vaccine Type:<input [(ngModel)]="medicalRecord.vaccineType" name = "vaccineType"/>  <br>
+			</div>
+
+			<h3>Sicknesses</h3>
+			<div *ngFor="let sickness of chicken.sicknesses">
+				<h4>Sickness {{sickness.id}}</h4>
+				Type:<input [(ngModel)]="sickness.sicknessType" name = "sicknessType"/>  <br>
+				Diagnosis Date:<input [(ngModel)]="sickness.diagnosisDate" name = "diagnosisDate"/>  <br>
+			</div>
+
+			<h3>Feed Details</h3>
+			<div *ngFor="let feedDetail of chicken.feedDetails">
+				<h4>Feed Detail {{feedDetail.id}}</h4>
+				Name:<input [(ngModel)]="feedDetail.name" name = "feedName"/>  <br>
+				Feed Amount:<input [(ngModel)]="feedDetail.feedAmount" name = "feedAmount"/>  <br>
+				Daily Rotation:<input [(ngModel)]="feedDetail.dailyRotation" name = "dailyRotation"/>  <br>
+			</div>
+		</form>
+
+		<h3>Other Details</h3>
+		Gender: <label> {{chicken.gender}}</label> <br>
+		Mode of Transportation: <label> {{chicken.modeOfTransportation}}</label> <br>
+		Birthday: <label> {{chicken.birthday}}</label> <br>
+		Date of Exit: <label> {{chicken.dateOfExit}}</label> <br>
+		Date of Entry: <label> {{chicken.dateOfEntry}}</label> <br>
+		Weight: <label> {{chicken.weight}}</label> <br>
+		Origin Country: <label> {{chicken.originCountry}}</label> <br>
+		Pedigree: <label> {{chicken.pedigree}}</label> <br>
+		Approved By: <label> {{chicken.approvedBy}}</label> <br>
+		Shipper: <label> {{chicken.shipper}}</label> <br>
+		Seller: <label> {{chicken.seller}}</label> <br>
+		Stop Overs: <label> {{chicken.stopovers}}</label> <br>
+		Location of Entry: <label> {{chicken.locationOfEntry}}</label> <br>
+		
+	</div>
+</div>
+
+<nav>
+	<a (click)="goBack()">Back</a>
+	<a (click)="delete()">Delete</a>
+	<a (click)="update()">Save</a>
+</nav>
+
