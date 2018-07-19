@@ -1,0 +1,11 @@
+[{"id":2,"gender":"MALE","modeOfTransportation":"AIR","birthday":"2018-01-01","dateOfExit":"2018-01-02","dateOfEntry":"2018-01-03",
+
+"medicalRecords":[{"id":4,"vaccineDate":"2018-02-02","vaccineType":"VaccineEX"}],
+
+"sicknesses":[{"id":5,"sicknessType":"Pneumonia","diagnosisDate":"2018-03-03"}],
+
+"feedDetails":[{"id":3,"name":"SuperFeed","feedAmount":2,"dailyRotation":"2018-01-01"}],
+
+"owner":{"id":1,"ownerType":"OWNER"},
+
+"weight":10.00,"originCountry":"US","pedigree":"Horned Chicken","approvedBy":"John","shipper":"FedEx","seller":"Jollibee","stopovers":"Manila","locationOfEntry":"NAIA Gate 1"},

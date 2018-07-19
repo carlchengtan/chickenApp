@@ -1,0 +1,37 @@
+TODO:
+
+--1. entity
+--2. repository
+--3. instantiate repo
+-3-. rest service
+4. test postman
+5. login
+6. Angular web app
+
+
+CHICKEN RFID APP (MOBILE AND WEB)
+
+LOGIN 2 USERS
+-OWNER OF CHICKEN
+-USER
+
+OWNER FUNCTIONALITIES:
+WEB
+-CRUD CHICKEN DETAILS
+MOBILE
+-READ WRITE TO RFID
+
+USER FUNCTIONALITY:
+MOBILE
+-READ RFID AND VIEW CHICKEN DETAILS
+WEB
+-VIEW LIST OF CHICKENS
+
+db postgres not inserting
+1. create new spring boot app no security dependencies etc.
+2. transfer all old files to new project (domain, repo, web, etc.)
+3. remove <versions> of dependencies in pom.xml
+4. dl dbeaver from eclipse marketplace
+5. create new conn to postgresql using dbeaver
+6. added spring.jpa.properties.hibernate.hbm2ddl.auto=create-drop in application.properties
+7. mvn eclipse:eclipse + mvn clean package
