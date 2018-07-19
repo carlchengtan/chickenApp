@@ -9,19 +9,23 @@ import { ChickensComponent } from './chickens/chickens.component';
 import { ChickenCreateComponent } from './chicken-create/chicken-create.component'
 import { ChickenEditComponent } from './chicken-edit/chicken-edit.component'
 
+import { LoginComponent } from './login/login.component'
+
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 //import { TanComponent } from './tan/tan.component';
 
 const routes: Routes = [
-		{ path: '', redirectTo: 'chickens', pathMatch: 'full' },
+		{ path: '', redirectTo: 'login', pathMatch: 'full' },
+		{ path: 'login', component: LoginComponent },
 		{ path: 'heroes', component: HeroesComponent },
 		{ path: 'dashboard', component: DashboardComponent },
 		{ path: 'detail/:id', component: HeroDetailComponent },
 		{ path: 'chickens', component: ChickensComponent },
 		//{ path: 'chicken-add', component: ChickenEditComponent },
 		{ path: 'chicken-create', component: ChickenCreateComponent },
-		{ path: 'chicken-edit/:id', component: ChickenEditComponent }
+		{ path: 'chicken-edit/:id', component: ChickenEditComponent },
+
 		//{ path: 'tan', component: TanComponent },
 	];
 

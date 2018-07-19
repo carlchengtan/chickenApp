@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
+import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
 import { HeroesComponent } from './heroes/heroes.component';
@@ -14,7 +15,11 @@ import { ChickenService } from './chicken.service';
 import { ChickenEditComponent } from './chicken-edit/chicken-edit.component';
 import { ChickenCreateComponent } from './chicken-create/chicken-create.component';
 
-import { ReactiveFormsModule } from '@angular/forms';  
+import { ReactiveFormsModule } from '@angular/forms';
+import { LoginComponent } from './login/login.component';  
+
+
+import { Globals } from './globals'
 //import { TanComponent } from './tan/tan.component';
 
 
@@ -26,7 +31,8 @@ import { ReactiveFormsModule } from '@angular/forms';
   DashboardComponent,
   ChickensComponent,
   ChickenEditComponent,
-  ChickenCreateComponent
+  ChickenCreateComponent,
+  LoginComponent
     //TanComponent
     ],
     imports: [
@@ -34,9 +40,10 @@ import { ReactiveFormsModule } from '@angular/forms';
     FormsModule,
     AppRoutingModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpModule,
     ],
-    providers: [ChickenService],
+    providers: [ChickenService, Globals],
     bootstrap: [AppComponent]
   })
 export class AppModule { }

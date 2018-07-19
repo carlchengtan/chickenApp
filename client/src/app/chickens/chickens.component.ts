@@ -11,6 +11,7 @@ import { Observable } from 'rxjs';
 export class ChickensComponent implements OnInit {
 
 	chickens: Array<any>;
+	title = 'Chickens';
 	
 	constructor(private chickenService: ChickenService) { }
 
@@ -20,8 +21,9 @@ export class ChickensComponent implements OnInit {
 
 	getChickens(): void{
 		// this.chickens = this.chickenService.getChickens();
-		this.chickenService.getAll().subscribe(data => {
-			this.chickens = data;
+		this.chickenService.getAll().subscribe(response => {
+			this.chickens = JSON.parse(response.text());
+			console.log(JSON.stringify(this.chickens) + "**************8");
 		});
 	}
 

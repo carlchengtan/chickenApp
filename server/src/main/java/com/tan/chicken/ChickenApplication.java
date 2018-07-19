@@ -7,18 +7,24 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.Ordered;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 
 @SpringBootApplication
 public class ChickenApplication {
+	
+	@Bean
+	public BCryptPasswordEncoder bCryptPasswordEncoder() {
+	    return new BCryptPasswordEncoder();
+	}
 
 	public static void main(String[] args) {
 		SpringApplication.run(ChickenApplication.class, args);
 	}
 	
-	@Bean
+	/*@Bean
 	@SuppressWarnings("unchecked")
 	public FilterRegistrationBean simpleCorsFilter() {
 	    UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
@@ -31,5 +37,5 @@ public class ChickenApplication {
 	    FilterRegistrationBean bean = new FilterRegistrationBean(new CorsFilter(source));
 	    bean.setOrder(Ordered.HIGHEST_PRECEDENCE);
 	    return bean;
-	}
+	}*/
 }

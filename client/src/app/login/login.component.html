@@ -1,0 +1,9 @@
+<form (ngSubmit)="onSubmit()">
+	Username: <br><input [(ngModel)]="credential.username" name = "username"/>  
+	<br><br>
+	Password: <br><input type="Password" [(ngModel)]="credential.password" name = "password"/>  
+	<br><br>
+	<nav>
+		<a (click)="login()">Login</a>
+	</nav> 
+</form>
