@@ -24,7 +24,7 @@ public class ChickenApplication {
 		SpringApplication.run(ChickenApplication.class, args);
 	}
 	
-	/*@Bean
+	@Bean
 	@SuppressWarnings("unchecked")
 	public FilterRegistrationBean simpleCorsFilter() {
 	    UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
@@ -37,5 +37,5 @@ public class ChickenApplication {
 	    FilterRegistrationBean bean = new FilterRegistrationBean(new CorsFilter(source));
 	    bean.setOrder(Ordered.HIGHEST_PRECEDENCE);
 	    return bean;
-	}*/
+	}
 }

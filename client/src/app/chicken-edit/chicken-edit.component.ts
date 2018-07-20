@@ -26,8 +26,9 @@ export class ChickenEditComponent implements OnInit {
 
 	getChicken(): void{
 		const id = +this.route.snapshot.paramMap.get('id');
-		this.chickenService.getOne(id)
-		.subscribe(Chicken => this.chicken = Chicken);
+		this.chickenService.getOne(id).subscribe(response => {
+			this.chicken = JSON.parse(response.text());
+		});
 	}
 
 	delete(): void{

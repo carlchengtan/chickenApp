@@ -12,13 +12,13 @@ export class ChickenService {
 
 	public API = '//localhost:8080';
 	public CHICKEN_API = this.API + '/chickens';
-	private token : String;
+	private token: String;
+	private headers: any;
 
 	constructor(private http:Http,
 		private globals:Globals) { }
 
 	login(credential: any): Observable<any> {
-
 		const headers = new Headers();
 		headers.append('Content-Type', 'application/json');
 		const options = new RequestOptions({headers: headers});
@@ -34,24 +34,35 @@ export class ChickenService {
 		const headers = new Headers();
 		headers.append('Authorization', this.globals.token);
 		const options = new RequestOptions({headers: headers});
-		//console.log("##############"+this.globals.token);
 		return this.http.get(this.CHICKEN_API, options);
 	}
 
-	getOne(id: number) {
-		return this.http.get(this.CHICKEN_API + '/' + id);
+	getOne(id: number): Observable<any> {
+		const headers = new Headers();
+		headers.append('Authorization', this.globals.token);
+		const options = new RequestOptions({headers: headers});
+		return this.http.get(this.CHICKEN_API + '/' + id, options);
 	}
 
 	save(chicken: any) {
-		return this.http.post(this.CHICKEN_API, chicken);
+		const headers = new Headers();
+		headers.append('Authorization', this.globals.token);
+		const options = new RequestOptions({headers: headers});
+		return this.http.post(this.CHICKEN_API, chicken, options);
 	}
 
 	delete(id: number) {
-		return this.http.delete(this.CHICKEN_API + '/' + id);
+		const headers = new Headers();
+		headers.append('Authorization', this.globals.token);
+		const options = new RequestOptions({headers: headers});
+		return this.http.delete(this.CHICKEN_API + '/' + id, options);
 	}
 	
 	update(id: number, chicken: any){
-		return this.http.put(this.CHICKEN_API + '/' + id, chicken);
+		const headers = new Headers();
+		headers.append('Authorization', this.globals.token);
+		const options = new RequestOptions({headers: headers});
+		return this.http.put(this.CHICKEN_API + '/' + id, chicken, options);
 	}
 
 }

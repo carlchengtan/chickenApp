@@ -23,7 +23,6 @@ export class ChickensComponent implements OnInit {
 		// this.chickens = this.chickenService.getChickens();
 		this.chickenService.getAll().subscribe(response => {
 			this.chickens = JSON.parse(response.text());
-			console.log(JSON.stringify(this.chickens) + "**************8");
 		});
 	}
 
