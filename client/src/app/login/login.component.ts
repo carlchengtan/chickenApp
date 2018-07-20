@@ -5,7 +5,8 @@ import { ChickenService } from '../chicken.service';
 import { Router } from '@angular/router';
 import { Globals } from '../globals';
 import { HttpResponse } from '@angular/common/http';
-import { finalize } from 'rxjs/operators/';
+import { CookiesStorageService } from 'ngx-store';
+
 
 @Component({
 	selector: 'app-login',
@@ -16,24 +17,34 @@ export class LoginComponent implements OnInit {
 
 	@Input() credential:any;
 
-	constructor(
-		private route: ActivatedRoute,
-		private location: Location,
-		private chickenService: ChickenService,
-		private router: Router,
-		private globals: Globals
-		) { }
+  // // it will be stored in a cookie named ${prefix}user_workspaces for 24 hours
+  // @CookieStorage({key: 'token', expires: 
+  // 	new Date(new Date().getTime() + 24 * 60 * 60 * 1000)}) 
+  // userWorkspaces = [];
 
-	ngOnInit() {
-		this.credential = {};
-	}
+  constructor(
+  	private route: ActivatedRoute,
+  	private location: Location,
+  	private chickenService: ChickenService,
+  	private router: Router,
+  	private globals: Globals,
+  	private cookieService: CookiesStorageService,
+  	) { }
 
-	login(): void{
-		this.chickenService.login(this.credential)
-		.subscribe((response: HttpResponse<any>) => 
-			{ this.globals.token = response.headers.get("Authorization"); 
-			console.log(this.globals.token); this.router.navigate(['/chickens']) } );
-		}
+  ngOnInit() {
+  	this.credential = {};
+  }
+
+  login(): void{
+  	this.chickenService.login(this.credential)
+  	.subscribe((response: HttpResponse<any>) => 
+  		{ this.globals.token = response.headers.get("Authorization"); 
+  		this.cookieService.set("token", response.headers.get("Authorization"), 
+  			new Date(new Date().getTime() + 24 * 60 * 60 * 1000)); 
+  		this.router.navigate(['/chickens']);
+  	} );
+
+  }
 
 
 		// login(): void {

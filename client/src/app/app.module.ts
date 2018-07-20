@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 import { HttpModule } from '@angular/http';
+import { WebStorageModule } from 'ngx-store';
 
 import { AppComponent } from './app.component';
 import { HeroesComponent } from './heroes/heroes.component';
@@ -32,16 +33,18 @@ import { Globals } from './globals'
   ChickensComponent,
   ChickenEditComponent,
   ChickenCreateComponent,
-  LoginComponent
+  LoginComponent,
     //TanComponent
     ],
     imports: [
+    WebStorageModule,
     BrowserModule,
     FormsModule,
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
     HttpModule,
+   // WebStorageModule,,
     ],
     providers: [ChickenService, Globals],
     bootstrap: [AppComponent]
