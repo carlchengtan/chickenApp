@@ -3,7 +3,6 @@ import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { ChickenService } from '../chicken.service';
 import { Router } from '@angular/router';
-import { Globals } from '../globals';
 import { HttpResponse } from '@angular/common/http';
 import { CookiesStorageService } from 'ngx-store';
 
@@ -27,7 +26,6 @@ export class LoginComponent implements OnInit {
   	private location: Location,
   	private chickenService: ChickenService,
   	private router: Router,
-  	private globals: Globals,
   	private cookieService: CookiesStorageService,
   	) { }
 
@@ -38,8 +36,7 @@ export class LoginComponent implements OnInit {
   login(): void{
   	this.chickenService.login(this.credential)
   	.subscribe((response: HttpResponse<any>) => 
-  		{ this.globals.token = response.headers.get("Authorization"); 
-  		this.cookieService.set("token", response.headers.get("Authorization"), 
+  		{	this.cookieService.set("token", response.headers.get("Authorization"), 
   			new Date(new Date().getTime() + 24 * 60 * 60 * 1000)); 
   		this.router.navigate(['/chickens']);
   	} );

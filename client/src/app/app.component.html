@@ -1,9 +1,9 @@
 
 
-<!-- <h1>{{title}}</h1>
-<nav>
-	<a routerLink="/dashboard">Dashboard</a>
-	<a routerLink="/heroes">Heroes</a>
-	<a routerLink="/chickens">View Chickens</a>
-</nav> -->
+<!-- <h1>{{title}}</h1> -->
+<nav *ngIf="cookieService.get('token')!=null">
+	
+	<a routerLink="/chicken-create">Add</a>
+	<a (click)="logout()">Logout</a>
+</nav>
 <router-outlet></router-outlet>

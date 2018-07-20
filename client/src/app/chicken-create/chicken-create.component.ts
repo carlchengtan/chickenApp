@@ -2,7 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { ChickenService } from '../chicken.service';
-import {Router} from '@angular/router';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -23,11 +23,11 @@ export class ChickenCreateComponent implements OnInit {
 		private location: Location,
 		private chickenService: ChickenService,
 		private router: Router
-		) { }
+		) {}
 
 	ngOnInit() {
 		this.chicken = {};
-		this.chicken.medicalRecords = {};
+		//this.chicken.medicalRecords = {};
 		this.medicalTemp = {};
 		this.medicalRecords = [];
 		//this.ctr = 0;
@@ -39,7 +39,6 @@ export class ChickenCreateComponent implements OnInit {
 		this.chickenService.save(this.chicken)
 		.subscribe((response) => console.log("saved"));
 		this.goBack();
-
 	}
 
 	goBack(): void{

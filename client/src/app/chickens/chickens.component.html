@@ -1,8 +1,5 @@
 <h1>{{title}}</h1>
-<nav>
-	<a routerLink="/chickens">View Chickens</a>
-	<a routerLink="/chicken-create">Add</a>
-</nav>
+
 <ul class="chickens">
 	<li *ngFor="let chicken of chickens">
 		<a routerLink="/chicken-edit/{{chicken.id}}">

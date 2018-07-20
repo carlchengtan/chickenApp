@@ -60,7 +60,6 @@ public class ChickenController {
 	
 	@PutMapping("/chickens/{id}")
 	public Chicken updateChicken(@PathVariable Long id, @RequestBody Chicken chicken) {
-		chicken.setId(id);
 		return chickenService.save(chicken);
 	}
 	

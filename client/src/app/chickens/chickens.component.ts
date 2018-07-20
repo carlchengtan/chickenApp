@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ChickenService } from '../chicken.service';
 import { Observable } from 'rxjs';
-
+import { ActivatedRoute, Router } from '@angular/router';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
 	selector: 'app-chickens',
@@ -12,8 +13,15 @@ export class ChickensComponent implements OnInit {
 
 	chickens: Array<any>;
 	title = 'Chickens';
+
 	
-	constructor(private chickenService: ChickenService) { }
+	constructor(private chickenService: ChickenService,
+		private route: ActivatedRoute,
+		private router: Router){
+		this.router.routeReuseStrategy.shouldReuseRoute = function() {
+			return false;
+		};
+	}
 
 	ngOnInit() { 
 		this.getChickens();
@@ -24,6 +32,11 @@ export class ChickensComponent implements OnInit {
 		this.chickenService.getAll().subscribe(response => {
 			this.chickens = JSON.parse(response.text());
 		});
+	}
+
+	delete(id: number): void{
+		this.chickenService.delete(id)
+		.subscribe((response) => { console.log("deleted"); this.ngOnInit(); });
 	}
 
 }

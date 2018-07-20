@@ -2,7 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { ChickenService } from '../chicken.service';
-import {Router} from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
 	selector: 'app-chicken-edit',
@@ -33,17 +33,16 @@ export class ChickenEditComponent implements OnInit {
 
 	delete(): void{
 		this.chickenService.delete(this.chicken.id)
-		.subscribe((response) => console.log("deleted"));
-		this.goBack();
+		.subscribe((response) => { console.log("deleted"); this.goBack(); });
 	}
 
 	update(): void{
 		this.chickenService.update(this.chicken.id, this.chicken)
-		.subscribe((response) => console.log("updated"));
-		this.goBack();
+		.subscribe((response) => { console.log("updated"); this.goBack(); } );
 	}
 
 	goBack(): void{
-		this.location.back();
+		this.router.navigate(['/chickens']);
+		//this.location.back();
 	}
 }
