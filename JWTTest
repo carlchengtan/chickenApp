@@ -25,3 +25,5 @@ curl -H "Content-Type: application/json" \
 # issue a new GET request, passing the JWT
 # remember to replace xxx.yyy.zzz with the JWT retrieved above
 curl -H "Authorization: Bearer xxx.yyy.zzz" http://localhost:8080/tasks
+
+Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTUzMzE5MDU3NX0.-1nc81ji-0Kd-TndUGQB7zUabhXHEGL3SRdksTOGFo2yOgnGCNxY7lSi_0plvjYuvKieiYerRrLNLd_jROBnFw

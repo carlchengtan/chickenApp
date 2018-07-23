@@ -38,6 +38,7 @@ export class LoginComponent implements OnInit {
   	.subscribe((response: HttpResponse<any>) => 
   		{	this.cookieService.set("token", response.headers.get("Authorization"), 
   			new Date(new Date().getTime() + 24 * 60 * 60 * 1000)); 
+      console.log(this.cookieService.get("token"));
   		this.router.navigate(['/chickens']);
   	} );
 

@@ -1,4 +1,5 @@
 package com.tan.chicken.domain;
+
 import java.util.Date;
 
 import javax.persistence.Entity;
@@ -13,12 +14,12 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Entity
 //@NoArgsConstructor
-//@Data 
 //@AllArgsConstructor
+//@Data
 //@Builder
 public class FeedDetail {
 	
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Id //@Setter(AccessLevel.NONE)
 	private Long id;
 	
@@ -27,7 +28,7 @@ public class FeedDetail {
 	
 	@Temporal(TemporalType.DATE)
 	private Date dailyRotation;
-
+	
 	public FeedDetail() {
 		super();
 	}
@@ -37,6 +38,14 @@ public class FeedDetail {
 		this.name = name;
 		this.feedAmount = feedAmount;
 		this.dailyRotation = dailyRotation;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public String getName() {
@@ -61,10 +70,6 @@ public class FeedDetail {
 
 	public void setDailyRotation(Date dailyRotation) {
 		this.dailyRotation = dailyRotation;
-	}
-
-	public Long getId() {
-		return id;
 	}
 
 	@Override

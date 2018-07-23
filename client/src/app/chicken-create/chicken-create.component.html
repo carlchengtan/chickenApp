@@ -41,13 +41,118 @@
       <br><br>
 
       <h3> MEDICAL RECORDS </h3>
-      Vaccine Date: <br><input type="Date" [(ngModel)]="medicalTemp.vaccineDate" name = "vaccineDate"/>  
+      <table >
+        <thead>
+          <tr>
+            <th>Vaccine Date</th>
+            <th>Vaccine Type</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let med of meds; let i = index">
+            <td>
+              <input [(ngModel)]="med.vaccineDate" type="date" name="{{med.vaccineDate}}" />
+            </td>
+            <td>
+              <input [(ngModel)]="med.vaccineType"  name="{{med.vaccineType}}" />
+            </td>
+            <td>
+              <button type="button" (click)="deleteField('med', i)">Delete</button>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <input type="date" id="newMedVaccineDate" [(ngModel)]="newMed.vaccineDate" name="newMedVaccineDate" />
+            </td>
+            <td>
+              <input type="text" id="newMedVaccineType" [(ngModel)]="newMed.vaccineType" name="newMedVaccineType" />
+            </td>
+            <td>
+              <button type="button" (click)="addField('med')">Add</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3> SICKNESSES </h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Diagnosis Date</th>
+            <th>Sickness Type</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let sickness of sicknesses; let i = index">
+            <td>
+              <input [(ngModel)]="sickness.diagnosisDate" type="date" name="{{sickness.diagnosisDate}}" />
+            </td>
+            <td>
+              <input [(ngModel)]="sickness.sicknessType"  name="{{sickness.sicknessType}}" />
+            </td>
+            <td>
+              <button type="button" (click)="deleteField('sickness', i)">Delete</button>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <input type="date" id="newSicknessDiagnosisDate" [(ngModel)]="newSickness.diagnosisDate" name="newSicknessDiagnosisDate" />
+            </td>
+            <td>
+              <input type="text" id="newSicknessSicknessType" [(ngModel)]="newSickness.sicknessType" name="newSicknessSicknessType" />
+            </td>
+            <td>
+              <button type="button" (click)="addField('sickness')">Add</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3> FEED DETAILS </h3>
+      <table >
+        <thead>
+          <tr>
+            <th>Daily Rotation</th>
+            <th>Name</th>
+            <th>Feed Amount</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let feed of feeds; let i = index">
+            <td>
+              <input type="date" [(ngModel)]="feed.dailyRotation" name="{{feed.dailyRotation}}" />
+            </td>
+            <td>
+              <input [(ngModel)]="feed.name" name="{{feed.name}}" />
+            </td>
+            <td>
+              <input [(ngModel)]="feed.feedAmount"  name="{{feed.feedAmount}}" />
+            </td>
+            <td>
+              <button type="button" (click)="deleteField('feed', i)">Delete</button>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <input type="date" id="newFeedDailyRotation" [(ngModel)]="newFeed.dailyRotation" name="newFeedDailyRotation" />
+            </td>
+            <td>
+              <input type="text" id="newFeedName" [(ngModel)]="newFeed.name" name="newFeedName" />
+            </td>
+            <td>
+              <input type="text" id="newFeedFeedAmount" [(ngModel)]="newFeed.feedAmount" name="newFeedFeedAmount" />
+            </td>
+            <td>
+              <button type="button" (click)="addField('feed')">Add</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
       <br><br>
-      Vaccine Type: <br><input [(ngModel)]="medicalTemp.vaccineType" name = "vaccineType"/>  
-      <br><br>
-      <nav>
-        <a (click)="addMedicalRecord()">Add Medical Record</a>
-      </nav> 
     </div>
   </form>
 

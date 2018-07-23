@@ -19,7 +19,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 //@Builder
 public class Sickness {
 	
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Id //@Setter(AccessLevel.NONE)
 	private Long id;
 	
@@ -36,6 +36,10 @@ public class Sickness {
 		super();
 		this.sicknessType = sicknessType;
 		this.diagnosisDate = diagnosisDate;
+	}
+	
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public String getSicknessType() {

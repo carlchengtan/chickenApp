@@ -21,13 +21,13 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 //@Data
 public class Owner {
 	
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Id //@Setter(AccessLevel.NONE)
 	private Long id;
 	
 	private String name;
 	
-	@OneToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY, mappedBy = "owner")
+	@OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY, mappedBy = "owner")
 	@JsonManagedReference
 	private Set<Chicken> chickens = new HashSet<>();
 	
@@ -50,6 +50,10 @@ public class Owner {
 		this.ownerType = ownerType;
 	}
 	
+	public void setId(Long id) {
+		this.id = id;
+	}
+
 	public String getName() {
 		return name;
 	}

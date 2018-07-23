@@ -60,7 +60,13 @@ public class ChickenController {
 	
 	@PutMapping("/chickens/{id}")
 	public Chicken updateChicken(@PathVariable Long id, @RequestBody Chicken chicken) {
+		chicken.setId(id);
 		return chickenService.save(chicken);
+	}
+	
+	@PutMapping("/chickens/{chickenId}/{ownerId}")
+	public void changeOwner(@PathVariable Long chickenId, @PathVariable Long ownerId) {
+		chickenService.changeOwner(chickenId, ownerId);
 	}
 	
 }

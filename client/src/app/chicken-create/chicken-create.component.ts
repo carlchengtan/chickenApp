@@ -13,10 +13,14 @@ import { Router } from '@angular/router';
 export class ChickenCreateComponent implements OnInit {
 	
 	@Input() chicken: any;
-	@Input() medicalRecord: any;
-	@Input() medicalTemp: any;
-	medicalRecords: any;
-	//ctr: number;
+
+	private meds: Array<any>;
+	private sicknesses: Array<any>;
+	private feeds: Array<any>
+
+	private newMed: any;
+	private newSickness: any;
+	private newFeed: any;
 
 	constructor(
 		private route: ActivatedRoute,
@@ -27,34 +31,66 @@ export class ChickenCreateComponent implements OnInit {
 
 	ngOnInit() {
 		this.chicken = {};
-		//this.chicken.medicalRecords = {};
-		this.medicalTemp = {};
-		this.medicalRecords = [];
-		//this.ctr = 0;
-		//this.chicken.medicalRecords = this.medicalRecord;
+
+		this.meds = [];
+		this.sicknesses = [];
+		this.feeds = [];
+
+		this.newMed = {};
+		this.newSickness = {};
+		this.newFeed = {};
 	}
 
 	save(): void{
+		this.chicken.medicalRecords = this.meds;
+		this.chicken.sicknesses = this.sicknesses;
+		this.chicken.feedDetails = this.feeds;
 		console.log(this.chicken);
+
 		this.chickenService.save(this.chicken)
 		.subscribe((response) => console.log("saved"));
 		this.goBack();
 	}
 
-	goBack(): void{
-		this.location.back();
+	addField(type) {
+		switch(type) { 
+			case "med": { 
+				this.meds.push(this.newMed)
+				this.newMed = {};
+				break; 
+			} 
+			case "sickness": {
+				this.sicknesses.push(this.newSickness)
+				this.newSickness = {};
+				break; 
+			}
+			case "feed": {
+				this.feeds.push(this.newFeed)
+				this.newFeed = {};
+				break; 
+			}
+		} 
 	}
 
-	addMedicalRecord(): void{
-		//Object.assign(this.medicalRecords, 
-		//	'{"vaccineDate":"'+this.medicalTemp.vaccineDate+'",'
-		//	+'"vaccineType":"'+this.medicalTemp.vaccineType+'"}');
-		//this.chicken['medicalRecords'][this.ctr].vaccineDate = this.medicalTemp.vaccineDate;
-		//this.ctr++;
-		//this.chicken.medicalRecords[0] = this.medicalTemp;
-		//this.chicken.medicalRecords[1] = this.medicalTemp;
-		console.log(this.chicken);
-		//console.log(this.medicalRecord);
+	deleteField(type, index) {
+		switch(type) { 
+			case "med": { 
+				this.meds.splice(index, 1);
+				break; 
+			} 
+			case "sickness": {
+				this.sicknesses.splice(index, 1);
+				break; 
+			}
+			case "feed": {
+				this.feeds.splice(index, 1);
+				break; 
+			}
+		} 
+	}
+
+	goBack(): void{
+		this.location.back();
 	}
 
 }

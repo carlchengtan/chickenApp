@@ -27,7 +27,6 @@ public class Data {
 	@Autowired
 	private OwnerRepository ownerRepository;	
 	
-	@PostConstruct
 	public void init() {
 
 		Owner owner1 = new Owner("John", OwnerType.OWNER);

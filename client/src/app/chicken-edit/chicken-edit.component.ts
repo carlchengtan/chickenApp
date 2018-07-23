@@ -12,6 +12,14 @@ import { Router } from '@angular/router';
 export class ChickenEditComponent implements OnInit {
 
 	@Input() chicken: any;
+
+	private meds: Array<any>;
+	private sicknesses: Array<any>;
+	private feeds: Array<any>
+
+	private newMed: any;
+	private newSickness: any;
+	private newFeed: any;
 	
 	constructor(
 		private route: ActivatedRoute,
@@ -22,12 +30,31 @@ export class ChickenEditComponent implements OnInit {
 
 	ngOnInit() {
 		this.getChicken();
+
+		this.meds = [];
+		this.sicknesses = [];
+		this.feeds = [];
+
+		this.newMed = {};
+		this.newSickness = {};
+		this.newFeed = {};
 	}
 
 	getChicken(): void{
 		const id = +this.route.snapshot.paramMap.get('id');
 		this.chickenService.getOne(id).subscribe(response => {
 			this.chicken = JSON.parse(response.text());
+			this.chicken.medicalRecords.forEach(element => {
+				this.meds.push(element);
+			});
+
+			this.chicken.sicknesses.forEach(element => {
+				this.sicknesses.push(element);
+			});
+
+			this.chicken.feedDetails.forEach(element => {
+				this.feeds.push(element);
+			});
 		});
 	}
 
@@ -37,6 +64,10 @@ export class ChickenEditComponent implements OnInit {
 	}
 
 	update(): void{
+		this.chicken.medicalRecords = this.meds;
+		this.chicken.sicknesses = this.sicknesses;
+		this.chicken.feedDetails = this.feeds;
+
 		this.chickenService.update(this.chicken.id, this.chicken)
 		.subscribe((response) => { console.log("updated"); this.goBack(); } );
 	}
@@ -45,4 +76,42 @@ export class ChickenEditComponent implements OnInit {
 		this.router.navigate(['/chickens']);
 		//this.location.back();
 	}
+
+	addField(type) {
+		switch(type) { 
+			case "med": { 
+				this.meds.push(this.newMed)
+				this.newMed = {};
+				break; 
+			} 
+			case "sickness": {
+				this.sicknesses.push(this.newSickness)
+				this.newSickness = {};
+				break; 
+			}
+			case "feed": {
+				this.feeds.push(this.newFeed)
+				this.newFeed = {};
+				break; 
+			}
+		} 
+	}
+
+	deleteField(type, index) {
+		switch(type) { 
+			case "med": { 
+				this.meds.splice(index, 1);
+				break; 
+			} 
+			case "sickness": {
+				this.sicknesses.splice(index, 1);
+				break; 
+			}
+			case "feed": {
+				this.feeds.splice(index, 1);
+				break; 
+			}
+		} 
+	}
+
 }

@@ -48,7 +48,7 @@ export class ChickenService {
 		headers.append('Content-Type', 'application/json');
 		headers.append('Authorization', this.cookieService.get("token"));
 		const options = new RequestOptions({headers: headers});
-		return this.http.post(this.CHICKEN_API, chicken, options);
+		return this.http.post(this.CHICKEN_API, JSON.stringify(chicken), options);
 	}
 
 	delete(id: number) {
@@ -60,8 +60,10 @@ export class ChickenService {
 	
 	update(id: number, chicken: any){
 		const headers = new Headers();
+		headers.append('Content-Type', 'application/json');
 		headers.append('Authorization', this.cookieService.get("token"));
 		const options = new RequestOptions({headers: headers});
+		console.log(chicken);
 		return this.http.put(this.CHICKEN_API + '/' + id, chicken, options);
 	}
 

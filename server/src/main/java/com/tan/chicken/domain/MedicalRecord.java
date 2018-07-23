@@ -19,7 +19,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 //@Builder
 public class MedicalRecord {
 	
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Id //@Setter(AccessLevel.NONE)
 	private Long id;
 	
@@ -36,6 +36,10 @@ public class MedicalRecord {
 		super();
 		this.vaccineDate = vaccineDate;
 		this.vaccineType = vaccineType;
+	}
+	
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public Date getVaccineDate() {

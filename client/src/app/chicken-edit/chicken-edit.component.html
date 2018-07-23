@@ -6,27 +6,119 @@
 			Name: <br><input [(ngModel)]="chicken.name" name = "chickenName"/>  <br>
 			Weight:<br><input [(ngModel)]="chicken.weight" name = "weight"/>  <br>
 
-			<h3>Medical Records</h3>
-			<div *ngFor="let medicalRecord of chicken.medicalRecords">
-				<h4>Medical Record {{medicalRecord.id}}</h4>
-				Vaccine Date:<input [(ngModel)]="medicalRecord.vaccineDate" name = "vaccineDate"/>  <br>
-				Vaccine Type:<input [(ngModel)]="medicalRecord.vaccineType" name = "vaccineType"/>  <br>
-			</div>
+			<h3> MEDICAL RECORDS </h3>
+			<table >
+				<thead>
+					<tr>
+						<th>Vaccine Date</th>
+						<th>Vaccine Type</th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr *ngFor="let med of meds; let i = index">
+						<td>
+							<input [(ngModel)]="med.vaccineDate" type="date" name="{{med.vaccineDate}}" />
+						</td>
+						<td>
+							<input [(ngModel)]="med.vaccineType"  name="{{med.vaccineType}}" />
+						</td>
+						<td>
+							<button type="button" (click)="deleteField('med', i)">Delete</button>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<input type="date" id="newMedVaccineDate" [(ngModel)]="newMed.vaccineDate" name="newMedVaccineDate" />
+						</td>
+						<td>
+							<input type="text" id="newMedVaccineType" [(ngModel)]="newMed.vaccineType" name="newMedVaccineType" />
+						</td>
+						<td>
+							<button type="button" (click)="addField('med')">Add</button>
+						</td>
+					</tr>
+				</tbody>
+			</table>
 
-			<h3>Sicknesses</h3>
-			<div *ngFor="let sickness of chicken.sicknesses">
-				<h4>Sickness {{sickness.id}}</h4>
-				Type:<input [(ngModel)]="sickness.sicknessType" name = "sicknessType"/>  <br>
-				Diagnosis Date:<input [(ngModel)]="sickness.diagnosisDate" name = "diagnosisDate"/>  <br>
-			</div>
 
-			<h3>Feed Details</h3>
-			<div *ngFor="let feedDetail of chicken.feedDetails">
-				<h4>Feed Detail {{feedDetail.id}}</h4>
-				Name:<input [(ngModel)]="feedDetail.name" name = "feedName"/>  <br>
-				Feed Amount:<input [(ngModel)]="feedDetail.feedAmount" name = "feedAmount"/>  <br>
-				Daily Rotation:<input [(ngModel)]="feedDetail.dailyRotation" name = "dailyRotation"/>  <br>
-			</div>
+			<h3> SICKNESSES </h3>
+			<table>
+				<thead>
+					<tr>
+						<th>Diagnosis Date</th>
+						<th>Sickness Type</th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr *ngFor="let sickness of sicknesses; let i = index">
+						<td>
+							<input [(ngModel)]="sickness.diagnosisDate" type="date" name="{{sickness.diagnosisDate}}" />
+						</td>
+						<td>
+							<input [(ngModel)]="sickness.sicknessType"  name="{{sickness.sicknessType}}" />
+						</td>
+						<td>
+							<button type="button" (click)="deleteField('sickness', i)">Delete</button>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<input type="date" id="newSicknessDiagnosisDate" [(ngModel)]="newSickness.diagnosisDate" name="newSicknessDiagnosisDate" />
+						</td>
+						<td>
+							<input type="text" id="newSicknessSicknessType" [(ngModel)]="newSickness.sicknessType" name="newSicknessSicknessType" />
+						</td>
+						<td>
+							<button type="button" (click)="addField('sickness')">Add</button>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+
+			<h3> FEED DETAILS </h3>
+			<table >
+				<thead>
+					<tr>
+						<th>Daily Rotation</th>
+						<th>Name</th>
+						<th>Feed Amount</th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr *ngFor="let feed of feeds; let i = index">
+						<td>
+							<input type="date" [(ngModel)]="feed.dailyRotation" name="{{feed.dailyRotation}}" />
+						</td>
+						<td>
+							<input [(ngModel)]="feed.name" name="{{feed.name}}" />
+						</td>
+						<td>
+							<input [(ngModel)]="feed.feedAmount"  name="{{feed.feedAmount}}" />
+						</td>
+						<td>
+							<button type="button" (click)="deleteField('feed', i)">Delete</button>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<input type="date" id="newFeedDailyRotation" [(ngModel)]="newFeed.dailyRotation" name="newFeedDailyRotation" />
+						</td>
+						<td>
+							<input type="text" id="newFeedName" [(ngModel)]="newFeed.name" name="newFeedName" />
+						</td>
+						<td>
+							<input type="text" id="newFeedFeedAmount" [(ngModel)]="newFeed.feedAmount" name="newFeedFeedAmount" />
+						</td>
+						<td>
+							<button type="button" (click)="addField('feed')">Add</button>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+
 		</form>
 
 		<h3>Other Details</h3>
@@ -44,11 +136,17 @@
 		Stop Overs: <label> {{chicken.stopovers}}</label> <br>
 		Location of Entry: <label> {{chicken.locationOfEntry}}</label> <br>
 		
+		Past Owners:
+		<ul *ngFor="let owner of chicken.pastOwners">
+			<li>{{owner}}</li>
+		</ul><br>
+
 	</div>
 </div>
 
 <nav>
 	<a (click)="goBack()">Back</a>
+	<a (click)="changeOwner()">Change Owner</a>
 	<a (click)="delete()">Delete</a>
 	<a (click)="update()">Save</a>
 </nav>
