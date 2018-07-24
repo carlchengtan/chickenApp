@@ -6,12 +6,11 @@ com/tan/chicken/ChickenApplication.class
 com/tan/chicken/security/JWTAuthorizationFilter.class
 com/tan/chicken/data/Data.class
 com/tan/chicken/service/UserDetailsServiceImpl.class
-com/tan/chicken/repository/OwnerRepository.class
+com/tan/chicken/domain/UserType.class
 com/tan/chicken/web/UserController.class
 com/tan/chicken/security/SecurityConstants.class
 com/tan/chicken/repository/MedicalRecordRepository.class
 com/tan/chicken/domain/Sickness.class
-com/tan/chicken/domain/OwnerType.class
 com/tan/chicken/service/ChickenService.class
 com/tan/chicken/domain/MedicalRecord.class
 com/tan/chicken/repository/ApplicationUserRepository.class
@@ -20,7 +19,6 @@ com/tan/chicken/domain/ModeOfTransportation.class
 com/tan/chicken/exception/ChickenNotFoundException.class
 com/tan/chicken/service/IChickenService.class
 com/tan/chicken/security/JWTAuthenticationFilter.class
-com/tan/chicken/domain/Owner.class
 com/tan/chicken/domain/ApplicationUser.class
 com/tan/chicken/domain/Gender.class
 com/tan/chicken/repository/ChickenRepository.class

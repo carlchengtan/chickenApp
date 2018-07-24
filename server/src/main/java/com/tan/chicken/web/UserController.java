@@ -13,6 +13,7 @@ import com.tan.chicken.repository.ApplicationUserRepository;
 @RequestMapping("/users")
 public class UserController {
 
+	
     private ApplicationUserRepository applicationUserRepository;
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
@@ -27,4 +28,5 @@ public class UserController {
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         applicationUserRepository.save(user);
     }
+    
 }

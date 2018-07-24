@@ -67,7 +67,6 @@ export class ChickenEditComponent implements OnInit {
 		this.chicken.medicalRecords = this.meds;
 		this.chicken.sicknesses = this.sicknesses;
 		this.chicken.feedDetails = this.feeds;
-
 		this.chickenService.update(this.chicken.id, this.chicken)
 		.subscribe((response) => { console.log("updated"); this.goBack(); } );
 	}

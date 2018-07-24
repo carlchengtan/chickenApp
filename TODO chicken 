@@ -1,12 +1,24 @@
 TODO:
 
---1. entity
---2. repository
---3. instantiate repo
--3-. rest service
-4. test postman
-5. login
-6. Angular web app
+-entity
+-repository
+-instantiate repo
+-rest service
+-test postman
+-login
+-Angular web app
+
+combine user table and owner
+on auth, get user details account type
+parse details along with token
+decode on front end
+prohibit account type user from CUD functions
+change owner impl on chickens
+
+android app
+
+
+=======================================================
 
 
 CHICKEN RFID APP (MOBILE AND WEB)

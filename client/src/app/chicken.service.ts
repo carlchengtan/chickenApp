@@ -29,6 +29,22 @@ export class ChickenService {
 			);
 	}
 
+	register(user: any): Observable<any> {
+		const headers = new Headers();
+		headers.append('Content-Type', 'application/json');
+		const options = new RequestOptions({headers: headers});
+		return this.http.post(
+			this.API+"/users/sign-up",
+			user,
+			options,
+			);
+// 	# registers a new user
+// curl -H "Content-Type: application/json" -X POST -d '{
+//     "username": "admin",
+//     "password": "password"
+// }' http://localhost:8080/users/sign-up
+	}
+
 	getAll(): Observable<any> {
 		const headers = new Headers();
 		headers.append('Authorization', this.cookieService.get("token"));

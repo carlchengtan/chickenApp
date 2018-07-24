@@ -90,6 +90,8 @@
 				<tbody>
 					<tr *ngFor="let feed of feeds; let i = index">
 						<td>
+
+							<input *ngIf="feed.id != null" type="hidden" value="{{feed.id}}" /> 
 							<input type="date" [(ngModel)]="feed.dailyRotation" name="{{feed.dailyRotation}}" />
 						</td>
 						<td>
@@ -137,7 +139,7 @@
 		Location of Entry: <label> {{chicken.locationOfEntry}}</label> <br>
 		
 		Past Owners:
-		<ul *ngFor="let owner of chicken.pastOwners">
+		<ul *ngFor="let owner of chicken.pastApplicationUsers">
 			<li>{{owner}}</li>
 		</ul><br>
 

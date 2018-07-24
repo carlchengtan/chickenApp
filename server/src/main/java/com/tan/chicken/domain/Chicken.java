@@ -55,11 +55,11 @@ public class Chicken {
 	private Set<FeedDetail> feedDetails = new HashSet<FeedDetail>();
 
 	@OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
-	private Set<Owner> pastOwners = new HashSet<Owner>();
+	private Set<ApplicationUser> pastApplicationUsers = new HashSet<ApplicationUser>();
 	
 	@JsonBackReference
 	@ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
-	private Owner owner;
+	private ApplicationUser applicationUser;
 	
 	private BigDecimal weight;
 	private String name;
@@ -76,7 +76,7 @@ public class Chicken {
 	}
 	
 	public Chicken(Gender gender, String name, ModeOfTransportation modeOfTransportation, Date birthday, Date dateOfExit,
-			Date dateOfEntry, Owner owner, BigDecimal weight, String originCountry, String pedigree, String approvedBy,
+			Date dateOfEntry, ApplicationUser applicationUser, BigDecimal weight, String originCountry, String pedigree, String approvedBy,
 			String shipper, String seller, String stopovers, String locationOfEntry) {
 		super();
 		this.gender = gender;
@@ -85,7 +85,7 @@ public class Chicken {
 		this.birthday = birthday;
 		this.dateOfExit = dateOfExit;
 		this.dateOfEntry = dateOfEntry;
-		this.owner = owner;
+		this.applicationUser = applicationUser;
 		this.weight = weight;
 		this.originCountry = originCountry;
 		this.pedigree = pedigree;
@@ -97,8 +97,8 @@ public class Chicken {
 	}
 
 	public Chicken(Gender gender, String name, ModeOfTransportation modeOfTransportation, Date birthday, Date dateOfExit,
-			Date dateOfEntry, Set<MedicalRecord> medicalRecords, Set<Sickness> sicknesses, Set<FeedDetail> feedDetails, Set<Owner> pastOwners,
-			Owner owner, BigDecimal weight, String originCountry, String pedigree, String approvedBy, String shipper,
+			Date dateOfEntry, Set<MedicalRecord> medicalRecords, Set<Sickness> sicknesses, Set<FeedDetail> feedDetails, Set<ApplicationUser> pastApplicationUsers,
+			ApplicationUser applicationUser, BigDecimal weight, String originCountry, String pedigree, String approvedBy, String shipper,
 			String seller, String stopovers, String locationOfEntry) {
 		super();
 		this.gender = gender;
@@ -110,8 +110,8 @@ public class Chicken {
 		this.medicalRecords = medicalRecords;
 		this.sicknesses = sicknesses;
 		this.feedDetails = feedDetails;
-		this.pastOwners = pastOwners;
-		this.owner = owner;
+		this.pastApplicationUsers = pastApplicationUsers;
+		this.applicationUser = applicationUser;
 		this.weight = weight;
 		this.originCountry = originCountry;
 		this.pedigree = pedigree;
@@ -134,9 +134,9 @@ public class Chicken {
 		this.sicknesses.add(sickness);
 	}
 
-	public void changeOwner(Owner newOwner) {
-		this.pastOwners.add(this.owner);
-		this.owner = newOwner;
+	public void changeApplicationUser(ApplicationUser newApplicationUser) {
+		this.pastApplicationUsers.add(this.applicationUser);
+		this.applicationUser = newApplicationUser;
 	}	
 	
 	public String getName() {
@@ -211,20 +211,20 @@ public class Chicken {
 		this.feedDetails = feedDetails;
 	}
 
-	public Owner getOwner() {
-		return owner;
+	public ApplicationUser getApplicationUser() {
+		return applicationUser;
 	}
 
-	public void setOwner(Owner owner) {
-		this.owner = owner;
+	public void setApplicationUser(ApplicationUser applicationUser) {
+		this.applicationUser = applicationUser;
 	}
 	
-	public Set<Owner> getPastOwners() {
-		return pastOwners;
+	public Set<ApplicationUser> getPastApplicationUsers() {
+		return pastApplicationUsers;
 	}
 
-	public void setPastOwners(Set<Owner> pastOwners) {
-		this.pastOwners = pastOwners;
+	public void setPastApplicationUsers(Set<ApplicationUser> pastApplicationUsers) {
+		this.pastApplicationUsers = pastApplicationUsers;
 	}
 
 	public BigDecimal getWeight() {
@@ -335,7 +335,7 @@ public class Chicken {
 		return "Chicken [id=" + id + ", gender=" + gender + ", modeOfTransportation=" + modeOfTransportation
 				+ ", birthday=" + birthday + ", dateOfExit=" + dateOfExit + ", dateOfEntry=" + dateOfEntry
 				+ ", medicalRecords=" + medicalRecords + ", sicknesses=" + sicknesses + ", feedDetails=" + feedDetails
-				+ ", pastOwners=" + pastOwners + ", owner=" + owner + ", weight=" + weight + ", name=" + name
+				+ ", pastApplicationUsers=" + pastApplicationUsers + ", applicationUser=" + applicationUser + ", weight=" + weight + ", name=" + name
 				+ ", originCountry=" + originCountry + ", pedigree=" + pedigree + ", approvedBy=" + approvedBy
 				+ ", shipper=" + shipper + ", seller=" + seller + ", stopovers=" + stopovers + ", locationOfEntry="
 				+ locationOfEntry + "]";

@@ -1,0 +1,14 @@
+<form (ngSubmit)="onSubmit()">
+	Username: <br><input [(ngModel)]="user.username" name = "username"/>  
+	<br><br>
+	Password: <br><input type="Password" [(ngModel)]="user.password" name = "password"/>  
+	<br><br>
+	 Account Type:<br>
+      <input type="radio" value="OWNER" name="userType" [(ngModel)]="user.userType"> Owner
+      <input type="radio" value="USER" name="userType" [(ngModel)]="user.userType"> User
+      <br><br>
+	<nav>
+		<a (click)="register()">Register</a>
+	</nav> 
+	<a routerLink="/login">Already have an account? Login</a>
+</form>

@@ -7,6 +7,7 @@ import { ChickenCreateComponent } from './chicken-create/chicken-create.componen
 import { ChickenEditComponent } from './chicken-edit/chicken-edit.component'
 
 import { LoginComponent } from './login/login.component'
+import { RegisterComponent } from './register/register.component';
 
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -15,6 +16,7 @@ import { Observable } from 'rxjs';
 const routes: Routes = [
 		{ path: '', redirectTo: 'login', pathMatch: 'full' },
 		{ path: 'login', component: LoginComponent },
+		{ path: 'register', component: RegisterComponent },
 		{ path: 'chickens', component: ChickensComponent },
 		{ path: 'chicken-create', component: ChickenCreateComponent },
 		{ path: 'chicken-edit/:id', component: ChickenEditComponent },
