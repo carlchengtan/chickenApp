@@ -72,57 +72,5 @@ public class FeedDetail {
 	public void setDailyRotation(Date dailyRotation) {
 		this.dailyRotation = dailyRotation;
 	}
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((dailyRotation == null) ? 0 : dailyRotation.hashCode());
-		result = prime * result + ((feedAmount == null) ? 0 : feedAmount.hashCode());
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + ((name == null) ? 0 : name.hashCode());
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		FeedDetail other = (FeedDetail) obj;
-		if (dailyRotation == null) {
-			if (other.dailyRotation != null)
-				return false;
-		} else if (!dailyRotation.equals(other.dailyRotation))
-			return false;
-		if (feedAmount == null) {
-			if (other.feedAmount != null)
-				return false;
-		} else if (!feedAmount.equals(other.feedAmount))
-			return false;
-		if (id == null) {
-			if (other.id != null)
-				return false;
-		} else if (!id.equals(other.id))
-			return false;
-		if (name == null) {
-			if (other.name != null)
-				return false;
-		} else if (!name.equals(other.name))
-			return false;
-		return true;
-	}
-
-	@Override
-	public String toString() {
-		return "FeedDetail [id=" + id + ", name=" + name + ", feedAmount=" + feedAmount + ", dailyRotation="
-				+ dailyRotation + "]";
-	}
-
-	
-	
 	
 }

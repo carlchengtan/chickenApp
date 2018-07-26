@@ -1,5 +1,7 @@
 TODO:
 
+REST API + ANGULAR
+
 -entity
 -repository
 -instantiate repo
@@ -8,14 +10,18 @@ TODO:
 -login
 -Angular web app
 
-combine user table and owner
-on auth, get user details account type
-parse details along with token
-decode on front end
-prohibit account type user from CUD functions
-change owner impl on chickens
+-combine user table and owner
+-parse details along with token
+-prohibit account type user from CUD functions
+-change owner impl on chickens
 
-android app
+-bug fix feedDetail error on update foreign key contraint (fix: remove hashcode equals tostring)
+
+decode on front end (prevent user from seeing CUD options)
+
+MOBILE
+add field to chicken last known location
+heatmap on last location of chicken
 
 
 =======================================================
