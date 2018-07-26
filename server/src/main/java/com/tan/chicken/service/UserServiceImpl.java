@@ -13,9 +13,11 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.tan.chicken.repository.UserRepository;
+import com.tan.chicken.domain.Role;
 import com.tan.chicken.domain.User;
 import com.tan.chicken.domain.UserDto;
+import com.tan.chicken.repository.RoleRepository;
+import com.tan.chicken.repository.UserRepository;
 
 
 @Service(value = "userService")
@@ -23,6 +25,9 @@ public class UserServiceImpl implements UserDetailsService, IUserService {
 	
 	@Autowired
 	private UserRepository userRepository;
+	
+	@Autowired
+	private RoleRepository roleRepository;
 
 	@Autowired
 	private BCryptPasswordEncoder bcryptEncoder;
@@ -69,8 +74,12 @@ public class UserServiceImpl implements UserDetailsService, IUserService {
 	@Override
     public User save(UserDto user) {
 	    User newUser = new User();
+	    
+	    Role role = roleRepository.findById(user.getRole()).get();
+	    System.out.println("########################"+ role.getName());
 	    newUser.setUsername(user.getUsername());
 	    newUser.setPassword(bcryptEncoder.encode(user.getPassword()));
+	    newUser.addRole(role);
         return userRepository.save(newUser);
     }
 }

@@ -19,14 +19,28 @@ export class AppComponent implements OnInit {
 
 	ngOnInit() {
 		this._routerSub = this.router.events.subscribe((val) => {
-			if(val instanceof NavigationEnd && this.cookieService.get("token")==null) {
-				this.router.navigate(["/login"]);
-			}
+			this.checkRoute(val);
 		});
 	}
 
 	ngOnDestroy(){
 		this._routerSub.unsubscribe();
+	}
+
+	checkRoute(val){
+		const url = this.router.url;
+		if(url === "/login"){
+			this.router.navigate(["/login"]);
+		}
+		if(url === "/register"){
+			this.router.navigate(["/register"]);
+		}
+		/*logged out user tries to access system*/
+		if(val instanceof NavigationEnd && this.cookieService.get("token")==null) {
+			this.router.navigate(["/login"]);
+			console.log(url);
+			this.ngOnDestroy();
+		}
 	}
 
 	logout(){

@@ -18,6 +18,14 @@ export class ChickenService {
 	constructor(private http:Http,
 		private cookieService: CookiesStorageService,) { }
 
+	register(credential: any): Observable<any> {
+		
+		return this.http.post(
+			this.API+"/signup",
+			credential
+			);
+	}
+
 	login(credential: any): Observable<any> {
 		
 		return this.http.post(

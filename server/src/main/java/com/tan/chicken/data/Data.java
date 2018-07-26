@@ -1,5 +1,7 @@
 package com.tan.chicken.data;
 
+import javax.annotation.PostConstruct;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -13,7 +15,7 @@ public class Data {
 	private OwnerRepository ownerRepository;	*/
 	@Autowired
 	private RoleRepository roleRepository;
-	//@PostConstruct
+//	@PostConstruct
 	public void init() {
 
 		/*Owner owner1 = new Owner("John", OwnerType.OWNER);

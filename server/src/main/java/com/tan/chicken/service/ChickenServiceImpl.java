@@ -7,13 +7,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.tan.chicken.domain.Chicken;
+import com.tan.chicken.domain.User;
 import com.tan.chicken.repository.ChickenRepository;
+import com.tan.chicken.repository.UserRepository;
 
 @Component
 public class ChickenServiceImpl implements IChickenService{
 
 	@Autowired
 	private ChickenRepository chickenRepository;
+	
+	@Autowired
+	private UserRepository userRepository;
 	
 	@Override
 	public List<Chicken> findAll() {
@@ -37,9 +42,9 @@ public class ChickenServiceImpl implements IChickenService{
 
 	@Override
 	public void changeOwner(Long chickenId, Long ownerId) {
-//		Chicken chicken = chickenRepository.findById(chickenId).get();
-//		Owner owner = ownerRepository.findById(ownerId).get();
-//		chicken.changeOwner(owner);
+		Chicken chicken = chickenRepository.findById(chickenId).get();
+		User owner = userRepository.findById(ownerId).get();
+		chicken.changeOwner(owner);
 	}
 
 	

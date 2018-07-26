@@ -1,5 +1,6 @@
 package com.tan.chicken.domain;
 
+import java.math.BigInteger;
 import java.util.Date;
 
 import javax.persistence.Entity;
@@ -24,7 +25,7 @@ public class FeedDetail {
 	private Long id;
 	
 	private String name;
-	private int feedAmount;
+	private Integer feedAmount;
 	
 	@Temporal(TemporalType.DATE)
 	private Date dailyRotation;
@@ -33,7 +34,7 @@ public class FeedDetail {
 		super();
 	}
 
-	public FeedDetail(String name, int feedAmount, Date dailyRotation) {
+	public FeedDetail(String name, Integer feedAmount, Date dailyRotation) {
 		super();
 		this.name = name;
 		this.feedAmount = feedAmount;
@@ -56,11 +57,11 @@ public class FeedDetail {
 		this.name = name;
 	}
 
-	public int getFeedAmount() {
+	public Integer getFeedAmount() {
 		return feedAmount;
 	}
 
-	public void setFeedAmount(int feedAmount) {
+	public void setFeedAmount(Integer feedAmount) {
 		this.feedAmount = feedAmount;
 	}
 
@@ -77,7 +78,7 @@ public class FeedDetail {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((dailyRotation == null) ? 0 : dailyRotation.hashCode());
-		result = prime * result + feedAmount;
+		result = prime * result + ((feedAmount == null) ? 0 : feedAmount.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		return result;
@@ -97,7 +98,10 @@ public class FeedDetail {
 				return false;
 		} else if (!dailyRotation.equals(other.dailyRotation))
 			return false;
-		if (feedAmount != other.feedAmount)
+		if (feedAmount == null) {
+			if (other.feedAmount != null)
+				return false;
+		} else if (!feedAmount.equals(other.feedAmount))
 			return false;
 		if (id == null) {
 			if (other.id != null)
@@ -117,5 +121,8 @@ public class FeedDetail {
 		return "FeedDetail [id=" + id + ", name=" + name + ", feedAmount=" + feedAmount + ", dailyRotation="
 				+ dailyRotation + "]";
 	}
+
+	
+	
 	
 }

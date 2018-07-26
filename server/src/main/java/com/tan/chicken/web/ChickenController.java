@@ -17,12 +17,12 @@ import org.springframework.web.bind.annotation.RestController;
 import com.tan.chicken.domain.Chicken;
 import com.tan.chicken.exception.ChickenNotFoundException;
 import com.tan.chicken.service.ChickenServiceImpl;
-@PreAuthorize("hasRole('ADMIN')")
+
 @RestController
 public class ChickenController {
 	
-		@Autowired
-		private ChickenServiceImpl chickenService;
+	@Autowired
+	private ChickenServiceImpl chickenService;
 	
 	@GetMapping
 	public String test() {
@@ -48,26 +48,29 @@ public class ChickenController {
 
 		return chicken.get();
 	}
-
+	
+	@PreAuthorize("hasRole('ADMIN')")
 	@DeleteMapping("/chickens/{id}")
 	public void deleteChicken(@PathVariable long id) {
 		chickenService.deleteById(id);
 	}
-
+	
+	@PreAuthorize("hasRole('ADMIN')")
 	@PostMapping("/chickens")
 	public Chicken createChicken(@RequestBody Chicken chicken) {
 		return chickenService.save(chicken);
 	}
 	
+	@PreAuthorize("hasRole('ADMIN')")
 	@PutMapping("/chickens/{id}")
 	public Chicken updateChicken(@PathVariable Long id, @RequestBody Chicken chicken) {
 		chicken.setId(id);
 		return chickenService.save(chicken);
 	}
 	
-	@PutMapping("/chickens/{chickenId}/{ownerId}")
+	/*@PutMapping("/chickens/{chickenId}/{ownerId}")
 	public void changeOwner(@PathVariable Long chickenId, @PathVariable Long ownerId) {
 		chickenService.changeOwner(chickenId, ownerId);
-	}
+	}*/
 	
 }

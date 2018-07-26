@@ -13,6 +13,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
@@ -51,7 +52,7 @@ public class Chicken {
 	@OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
 	private Set<Sickness> sicknesses = new HashSet<Sickness>();
 	
-	@OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
+	@ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
 	private Set<FeedDetail> feedDetails = new HashSet<FeedDetail>();
 
 	@OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
@@ -103,10 +104,10 @@ public class Chicken {
 		this.sicknesses.add(sickness);
 	}
 
-//	public void changeOwner(Owner newOwner) {
-//		this.pastOwners.add(this.owner);
-//		this.owner = newOwner;
-//	}	
+	public void changeOwner(User newOwner) {
+		this.pastUsers.add(this.user);
+		this.user = newOwner;
+	}	
 	
 	public String getName() {
 		return name;
