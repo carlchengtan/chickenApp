@@ -18,7 +18,7 @@ import com.tan.chicken.domain.AuthToken;
 import com.tan.chicken.domain.LoginUser;
 import com.tan.chicken.security.TokenProvider;
 
-@CrossOrigin(origins = "*", maxAge = 3600)
+@CrossOrigin(origins = "*", maxAge = 24 * 60 * 60)
 @RestController
 @RequestMapping("/token")
 public class AuthenticationController {

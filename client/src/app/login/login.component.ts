@@ -35,8 +35,9 @@ export class LoginComponent implements OnInit {
 
   login(): void{
   	this.chickenService.login(this.credential)
-  	.subscribe((response: HttpResponse<any>) => 
-  		{	this.cookieService.set("token", "Bearer " + JSON.stringify(response), 
+  	.subscribe((response) => 
+  		{	const tempToken = (JSON.parse(response.text())).token;
+        this.cookieService.set("token", "Bearer " + tempToken,
   			new Date(new Date().getTime() + 24 * 60 * 60 * 1000)); 
       console.log(this.cookieService.get("token"));
   		this.router.navigate(['/chickens']);
