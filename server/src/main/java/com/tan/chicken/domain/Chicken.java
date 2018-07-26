@@ -55,11 +55,11 @@ public class Chicken {
 	private Set<FeedDetail> feedDetails = new HashSet<FeedDetail>();
 
 	@OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
-	private Set<Owner> pastOwners = new HashSet<Owner>();
+	private Set<User> pastUsers = new HashSet<User>();
 	
 	@JsonBackReference
 	@ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
-	private Owner owner;
+	private User user;
 	
 	private BigDecimal weight;
 	private String name;
@@ -75,51 +75,20 @@ public class Chicken {
 		super();
 	}
 	
-	public Chicken(Gender gender, String name, ModeOfTransportation modeOfTransportation, Date birthday, Date dateOfExit,
-			Date dateOfEntry, Owner owner, BigDecimal weight, String originCountry, String pedigree, String approvedBy,
-			String shipper, String seller, String stopovers, String locationOfEntry) {
-		super();
-		this.gender = gender;
-		this.name = name;
-		this.modeOfTransportation = modeOfTransportation;
-		this.birthday = birthday;
-		this.dateOfExit = dateOfExit;
-		this.dateOfEntry = dateOfEntry;
-		this.owner = owner;
-		this.weight = weight;
-		this.originCountry = originCountry;
-		this.pedigree = pedigree;
-		this.approvedBy = approvedBy;
-		this.shipper = shipper;
-		this.seller = seller;
-		this.stopovers = stopovers;
-		this.locationOfEntry = locationOfEntry;
+	public Set<User> getPastUsers() {
+		return pastUsers;
 	}
 
-	public Chicken(Gender gender, String name, ModeOfTransportation modeOfTransportation, Date birthday, Date dateOfExit,
-			Date dateOfEntry, Set<MedicalRecord> medicalRecords, Set<Sickness> sicknesses, Set<FeedDetail> feedDetails, Set<Owner> pastOwners,
-			Owner owner, BigDecimal weight, String originCountry, String pedigree, String approvedBy, String shipper,
-			String seller, String stopovers, String locationOfEntry) {
-		super();
-		this.gender = gender;
-		this.name = name;
-		this.modeOfTransportation = modeOfTransportation;
-		this.birthday = birthday;
-		this.dateOfExit = dateOfExit;
-		this.dateOfEntry = dateOfEntry;
-		this.medicalRecords = medicalRecords;
-		this.sicknesses = sicknesses;
-		this.feedDetails = feedDetails;
-		this.pastOwners = pastOwners;
-		this.owner = owner;
-		this.weight = weight;
-		this.originCountry = originCountry;
-		this.pedigree = pedigree;
-		this.approvedBy = approvedBy;
-		this.shipper = shipper;
-		this.seller = seller;
-		this.stopovers = stopovers;
-		this.locationOfEntry = locationOfEntry;
+	public void setPastUsers(Set<User> pastUsers) {
+		this.pastUsers = pastUsers;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 	public void addFeedDetail(FeedDetail feedDetail) {
@@ -134,10 +103,10 @@ public class Chicken {
 		this.sicknesses.add(sickness);
 	}
 
-	public void changeOwner(Owner newOwner) {
-		this.pastOwners.add(this.owner);
-		this.owner = newOwner;
-	}	
+//	public void changeOwner(Owner newOwner) {
+//		this.pastOwners.add(this.owner);
+//		this.owner = newOwner;
+//	}	
 	
 	public String getName() {
 		return name;
@@ -209,22 +178,6 @@ public class Chicken {
 
 	public void setFeedDetails(Set<FeedDetail> feedDetails) {
 		this.feedDetails = feedDetails;
-	}
-
-	public Owner getOwner() {
-		return owner;
-	}
-
-	public void setOwner(Owner owner) {
-		this.owner = owner;
-	}
-	
-	public Set<Owner> getPastOwners() {
-		return pastOwners;
-	}
-
-	public void setPastOwners(Set<Owner> pastOwners) {
-		this.pastOwners = pastOwners;
 	}
 
 	public BigDecimal getWeight() {
@@ -335,7 +288,7 @@ public class Chicken {
 		return "Chicken [id=" + id + ", gender=" + gender + ", modeOfTransportation=" + modeOfTransportation
 				+ ", birthday=" + birthday + ", dateOfExit=" + dateOfExit + ", dateOfEntry=" + dateOfEntry
 				+ ", medicalRecords=" + medicalRecords + ", sicknesses=" + sicknesses + ", feedDetails=" + feedDetails
-				+ ", pastOwners=" + pastOwners + ", owner=" + owner + ", weight=" + weight + ", name=" + name
+				+ ", pastUsers=" + pastUsers + ", user=" + user + ", weight=" + weight + ", name=" + name
 				+ ", originCountry=" + originCountry + ", pedigree=" + pedigree + ", approvedBy=" + approvedBy
 				+ ", shipper=" + shipper + ", seller=" + seller + ", stopovers=" + stopovers + ", locationOfEntry="
 				+ locationOfEntry + "]";

@@ -24,6 +24,50 @@ curl -H "Content-Type: application/json" \
 
 # issue a new GET request, passing the JWT
 # remember to replace xxx.yyy.zzz with the JWT retrieved above
-curl -H "Authorization: Bearer xxx.yyy.zzz" http://localhost:8080/tasks
+curl -H "Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyMSIsInNjb3BlcyI6IlJPTEVfQURNSU4iLCJpYXQiOjE1MjYzOTA0NDMsImV4cCI6MTUyNjQwODQ0M30.4uWqKGkyP7TJu_W2M0apZqK6CLrM8bgl3uolo2piHmQ" http://localhost:8080/user/1
 
 Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTUzMzE5MDU3NX0.-1nc81ji-0Kd-TndUGQB7zUabhXHEGL3SRdksTOGFo2yOgnGCNxY7lSi_0plvjYuvKieiYerRrLNLd_jROBnFw
+
+Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsInNjb3BlcyI6IlJPTEVfVVNFUiIsImlhdCI6MTUzMjUxNzIyNSwiZXhwIjoxNTMyNTM1MjI1fQ.BijUAz2PLvedw_7fLp7cY5HiJmi4sCxgmKzEPlS3kdA
+=================================================================================
+API to create new user
+
+URL: http:localhost:8080/signup
+
+Method: POST
+
+Payload: { "username": "user4", "password": "password5", "age": 33, "salary": 898999 }
+
+API to generate token
+
+URL: http:localhost:8080/token/generate-token
+
+Method: POST
+
+Payload: { "username": "user4", "password": "password5" }
+
+API to Fetch All User(ADMIN Role)
+
+URL: http:localhost:8080/user
+
+Method: GET
+
+Header:
+
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyMSIsInNjb3BlcyI6IlJPTEVfQURNSU4iLCJpYXQiOjE1MjYzOTA0NDMsImV4cCI6MTUyNjQwODQ0M30.4uWqKGkyP7TJu_W2M0apZqK6CLrM8bgl3uolo2piHmQ
+API to Fetch SingleUser(USER or ADMIN Role)
+
+URL: http:localhost:8080/user/1
+
+Method: GET
+
+Header:
+
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyMSIsInNjb3BlcyI6IlJPTEVfQURNSU4iLCJpYXQiOjE1MjYzOTA0NDMsImV4cCI6MTUyNjQwODQ0M30.4uWqKGkyP7TJu_W2M0apZqK6CLrM8bgl3uolo2piHmQ
+
+
+
+
+
+
+curl -H "Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyIiwic2NvcGVzIjoiUk9MRV9VU0VSIiwiaWF0IjoxNTMyNTIwMDk5LCJleHAiOjE1MzI1MzgwOTl9.2XJld6AA-zNp71DxQfUGLOXg6WiEKTzzguZuhVWqQSc" http://localhost:8080/

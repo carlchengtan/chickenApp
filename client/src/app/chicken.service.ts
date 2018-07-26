@@ -19,13 +19,10 @@ export class ChickenService {
 		private cookieService: CookiesStorageService,) { }
 
 	login(credential: any): Observable<any> {
-		const headers = new Headers();
-		headers.append('Content-Type', 'application/json');
-		const options = new RequestOptions({headers: headers});
+		
 		return this.http.post(
-			this.API+"/login",
-			credential,
-			options,
+			this.API+"/token/generate-token",
+			credential
 			);
 	}
 

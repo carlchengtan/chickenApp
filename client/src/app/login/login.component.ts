@@ -36,12 +36,11 @@ export class LoginComponent implements OnInit {
   login(): void{
   	this.chickenService.login(this.credential)
   	.subscribe((response: HttpResponse<any>) => 
-  		{	this.cookieService.set("token", response.headers.get("Authorization"), 
+  		{	this.cookieService.set("token", "Bearer " + JSON.stringify(response), 
   			new Date(new Date().getTime() + 24 * 60 * 60 * 1000)); 
       console.log(this.cookieService.get("token"));
   		this.router.navigate(['/chickens']);
   	} );
-
   }
 
 

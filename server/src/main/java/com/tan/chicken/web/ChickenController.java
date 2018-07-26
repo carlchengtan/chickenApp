@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,13 +16,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.tan.chicken.domain.Chicken;
 import com.tan.chicken.exception.ChickenNotFoundException;
-import com.tan.chicken.service.ChickenService;
-
+import com.tan.chicken.service.ChickenServiceImpl;
+@PreAuthorize("hasRole('ADMIN')")
 @RestController
 public class ChickenController {
-
-	@Autowired
-	private ChickenService chickenService;
+	
+		@Autowired
+		private ChickenServiceImpl chickenService;
 	
 	@GetMapping
 	public String test() {
