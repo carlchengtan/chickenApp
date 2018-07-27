@@ -30,6 +30,7 @@ export class ChickensComponent implements OnInit {
 	getChickens(): void{
 		// this.chickens = this.chickenService.getChickens();
 		this.chickenService.getAll().subscribe(response => {
+			console.log(response.text());
 			this.chickens = JSON.parse(response.text());
 		});
 	}

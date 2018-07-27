@@ -44,6 +44,7 @@ export class ChickenEditComponent implements OnInit {
 		const id = +this.route.snapshot.paramMap.get('id');
 		this.chickenService.getOne(id).subscribe(response => {
 			this.chicken = JSON.parse(response.text());
+			console.log(this.chicken);
 			this.chicken.medicalRecords.forEach(element => {
 				this.meds.push(element);
 			});

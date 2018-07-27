@@ -70,7 +70,7 @@ public class UserServiceImpl implements UserDetailsService, IUserService {
 	public User findById(Long id) {
 		return userRepository.findById(id).get();
 	}
-
+	
 	@Override
     public User save(UserDto user) {
 	    User newUser = new User();
@@ -82,4 +82,10 @@ public class UserServiceImpl implements UserDetailsService, IUserService {
 	    newUser.addRole(role);
         return userRepository.save(newUser);
     }
+
+	@Override
+	public List<User> findByRoles_Id(Long id){
+		return userRepository.findByRoles_Id(id);
+	}
+	
 }

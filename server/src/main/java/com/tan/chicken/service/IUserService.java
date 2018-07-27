@@ -11,6 +11,6 @@ public interface IUserService {
     List<User> findAll();
     void delete(long id);
     User findOne(String username);
-
+    List<User> findByRoles_Id(Long id);
     User findById(Long id);
 }

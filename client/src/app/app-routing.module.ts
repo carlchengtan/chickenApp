@@ -5,6 +5,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { ChickensComponent } from './chickens/chickens.component';
 import { ChickenCreateComponent } from './chicken-create/chicken-create.component'
 import { ChickenEditComponent } from './chicken-edit/chicken-edit.component'
+import { ChangeOwnerComponent } from './change-owner/change-owner.component';
 
 import { LoginComponent } from './login/login.component'
 import { RegisterComponent } from './register/register.component';
@@ -20,6 +21,7 @@ const routes: Routes = [
 		{ path: 'chickens', component: ChickensComponent },
 		{ path: 'chicken-create', component: ChickenCreateComponent },
 		{ path: 'chicken-edit/:id', component: ChickenEditComponent },
+		{ path: 'change-owner/:id', component: ChangeOwnerComponent },
 	];
 
 @NgModule({

@@ -68,9 +68,11 @@ public class ChickenController {
 		return chickenService.save(chicken);
 	}
 	
-	/*@PutMapping("/chickens/{chickenId}/{ownerId}")
-	public void changeOwner(@PathVariable Long chickenId, @PathVariable Long ownerId) {
-		chickenService.changeOwner(chickenId, ownerId);
-	}*/
+	@PreAuthorize("hasRole('ADMIN')")
+	@PutMapping("/chickens/{chickenId}/{ownerId}")
+	public Chicken changeOwner(@PathVariable Long chickenId, @PathVariable Long ownerId) {
+		System.out.println("#################"+chickenId+ownerId);
+		return chickenService.changeOwner(chickenId, ownerId);
+	}
 	
 }

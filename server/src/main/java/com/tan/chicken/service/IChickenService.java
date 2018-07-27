@@ -9,5 +9,5 @@ public interface IChickenService {
 	public Optional<Chicken> findById(Long id);
 	public Chicken save(Chicken chicken);
 	public void deleteById(Long id);
-	public void changeOwner(Long chickenId, Long ownerId);
+	public Chicken changeOwner(Long chickenId, Long ownerId);
 }

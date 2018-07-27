@@ -54,9 +54,10 @@ public class Chicken {
 	
 	@ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
 	private Set<FeedDetail> feedDetails = new HashSet<FeedDetail>();
-
+	
+	@JsonBackReference
 	@OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
-	private Set<User> pastUsers = new HashSet<User>();
+	private Set<User> pastAccountUsers = new HashSet<User>();
 	
 	@JsonBackReference
 	@ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
@@ -77,11 +78,11 @@ public class Chicken {
 	}
 	
 	public Set<User> getPastUsers() {
-		return pastUsers;
+		return pastAccountUsers;
 	}
 
 	public void setPastUsers(Set<User> pastUsers) {
-		this.pastUsers = pastUsers;
+		this.pastAccountUsers = pastUsers;
 	}
 
 	public User getUser() {
@@ -105,7 +106,7 @@ public class Chicken {
 	}
 
 	public void changeOwner(User newOwner) {
-		this.pastUsers.add(this.user);
+		this.pastAccountUsers.add(this.user);
 		this.user = newOwner;
 	}	
 	
@@ -289,7 +290,7 @@ public class Chicken {
 		return "Chicken [id=" + id + ", gender=" + gender + ", modeOfTransportation=" + modeOfTransportation
 				+ ", birthday=" + birthday + ", dateOfExit=" + dateOfExit + ", dateOfEntry=" + dateOfEntry
 				+ ", medicalRecords=" + medicalRecords + ", sicknesses=" + sicknesses + ", feedDetails=" + feedDetails
-				+ ", pastUsers=" + pastUsers + ", user=" + user + ", weight=" + weight + ", name=" + name
+				+ ", pastUsers=" + pastAccountUsers + ", user=" + user + ", weight=" + weight + ", name=" + name
 				+ ", originCountry=" + originCountry + ", pedigree=" + pedigree + ", approvedBy=" + approvedBy
 				+ ", shipper=" + shipper + ", seller=" + seller + ", stopovers=" + stopovers + ", locationOfEntry="
 				+ locationOfEntry + "]";

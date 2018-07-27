@@ -13,6 +13,7 @@ import { ChickensComponent } from './chickens/chickens.component';
 import { ChickenCreateComponent } from './chicken-create/chicken-create.component';
 import { ChickenEditComponent } from './chicken-edit/chicken-edit.component';
 import { RegisterComponent } from './register/register.component';
+import { ChangeOwnerComponent } from './change-owner/change-owner.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { RegisterComponent } from './register/register.component';
   ChickenCreateComponent,
   LoginComponent,
   RegisterComponent,
+  ChangeOwnerComponent,
   ],
   imports: [
   WebStorageModule,

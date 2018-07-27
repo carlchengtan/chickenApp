@@ -19,7 +19,7 @@ export class AppComponent implements OnInit {
 
 	ngOnInit() {
 		this._routerSub = this.router.events.subscribe((val) => {
-			this.checkRoute(val);
+			// this.checkRoute(val);
 		});
 	}
 

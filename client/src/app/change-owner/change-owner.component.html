@@ -1,0 +1,25 @@
+<h3> SELECT AN OWNER </h3>
+<table >
+	<thead>
+		<tr>
+			<th></th>
+			<th>Owner</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr *ngFor="let user of users">
+			<td>
+				<input type="radio" value={{user.id}} name="id" [(ngModel)]="newOwner.id"> 
+			</td>
+			<td>
+				{{user.username}}
+				<!--  <div value="{{owner.username}}">{{owner.username}}</div>	-->
+			</td>
+		</tr>
+	</tbody>
+</table>
+
+<nav>
+	<a (click)="goBack()">Back</a>
+	<a (click)="save()">Save</a>
+</nav>

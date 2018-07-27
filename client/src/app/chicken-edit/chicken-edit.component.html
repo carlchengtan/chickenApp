@@ -139,8 +139,8 @@
 		Location of Entry: <label> {{chicken.locationOfEntry}}</label> <br>
 		
 		Past Owners:
-		<ul *ngFor="let owner of chicken.pastApplicationUsers">
-			<li>{{owner}}</li>
+		<ul *ngFor="let user of chicken.pastUsers">
+			<li>{{user.username}}</li>
 		</ul><br>
 
 	</div>
@@ -148,7 +148,7 @@
 
 <nav>
 	<a (click)="goBack()">Back</a>
-	<a (click)="changeOwner()">Change Owner</a>
+	<a [routerLink]="['/change-owner', chicken.id]">Change Owner</a>
 	<a (click)="delete()">Delete</a>
 	<a (click)="update()">Save</a>
 </nav>

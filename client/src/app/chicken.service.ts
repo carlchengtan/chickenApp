@@ -19,7 +19,6 @@ export class ChickenService {
 		private cookieService: CookiesStorageService,) { }
 
 	register(credential: any): Observable<any> {
-		
 		return this.http.post(
 			this.API+"/signup",
 			credential
@@ -27,7 +26,6 @@ export class ChickenService {
 	}
 
 	login(credential: any): Observable<any> {
-		
 		return this.http.post(
 			this.API+"/token/generate-token",
 			credential
@@ -35,41 +33,49 @@ export class ChickenService {
 	}
 
 	getAll(): Observable<any> {
-		const headers = new Headers();
-		headers.append('Authorization', this.cookieService.get("token"));
-		const options = new RequestOptions({headers: headers});
-		return this.http.get(this.CHICKEN_API, options);
+		return this.http.get(this.CHICKEN_API, 
+			this.getOptions(false));
 	}
 
 	getOne(id: number): Observable<any> {
-		const headers = new Headers();
-		headers.append('Authorization', this.cookieService.get("token"));
-		const options = new RequestOptions({headers: headers});
-		return this.http.get(this.CHICKEN_API + '/' + id, options);
+		return this.http.get(this.CHICKEN_API + '/' + id, 
+			this.getOptions(false));
 	}
 
 	save(chicken: any) {
-		const headers = new Headers();
-		headers.append('Content-Type', 'application/json');
-		headers.append('Authorization', this.cookieService.get("token"));
-		const options = new RequestOptions({headers: headers});
-		return this.http.post(this.CHICKEN_API, JSON.stringify(chicken), options);
+		return this.http.post(this.CHICKEN_API, JSON.stringify(chicken), 
+			this.getOptions(true));
 	}
 
 	delete(id: number) {
-		const headers = new Headers();
-		headers.append('Authorization', this.cookieService.get("token"));
-		const options = new RequestOptions({headers: headers});
-		return this.http.delete(this.CHICKEN_API + '/' + id, options);
+		return this.http.delete(this.CHICKEN_API + '/' + id, 
+			this.getOptions(false));
 	}
 	
 	update(id: number, chicken: any){
-		const headers = new Headers();
-		headers.append('Content-Type', 'application/json');
-		headers.append('Authorization', this.cookieService.get("token"));
-		const options = new RequestOptions({headers: headers});
 		console.log(chicken);
-		return this.http.put(this.CHICKEN_API + '/' + id, chicken, options);
+		return this.http.put(this.CHICKEN_API + '/' + id, chicken, 
+			this.getOptions(true));
+	}
+
+	getOwners(): Observable<any> {
+		return this.http.get(this.API + "/owners", 
+			this.getOptions(false));
+	}
+
+	changeOwner(chickenId: any, ownerId: any){
+		return this.http.put(this.CHICKEN_API + '/' + chickenId + 
+			'/' + ownerId, null, this.getOptions(false));
+	}
+
+	getOptions(withJson: any): RequestOptions{
+		const headers = new Headers();
+		if(withJson == true){
+			headers.append('Content-Type', 'application/json');	
+		}
+		headers.append('Authorization', this.cookieService.get("token"));
+		console.log(this.cookieService.get("token"));
+		return new RequestOptions({headers: headers});
 	}
 
 }
