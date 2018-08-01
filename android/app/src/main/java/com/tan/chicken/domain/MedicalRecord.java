@@ -1,8 +1,9 @@
 package com.tan.chicken.domain;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class MedicalRecord{
+public class MedicalRecord implements Serializable {
 
     private Long id;
     private Date vaccineDate;

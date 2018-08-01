@@ -70,7 +70,7 @@ export class ChickenService {
 
 	getOptions(withJson: any): RequestOptions{
 		const headers = new Headers();
-		if(withJson == true){
+		if(withJson === true){
 			headers.append('Content-Type', 'application/json');	
 		}
 		headers.append('Authorization', this.cookieService.get("token"));

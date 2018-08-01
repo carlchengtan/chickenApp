@@ -1,8 +1,9 @@
 package com.tan.chicken.domain;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Sickness {
+public class Sickness implements Serializable {
 
     private Long id;
     private String sicknessType;

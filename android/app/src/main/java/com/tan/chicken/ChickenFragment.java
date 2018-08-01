@@ -3,6 +3,7 @@ package com.tan.chicken;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.app.Activity;
 import android.app.LoaderManager;
 import android.content.Context;
 import android.content.Intent;
@@ -52,9 +53,8 @@ import java.util.List;
  */
 public class ChickenFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
 
-    // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
-    // TODO: Customize parameters
+
     private int mColumnCount = 1;
     private OnListFragmentInteractionListener mListener;
 
@@ -72,9 +72,6 @@ public class ChickenFragment extends Fragment implements LoaderManager.LoaderCal
     private RecyclerView chickensRecyclerView;
     private String chickens;
     private List<Chicken> chickensList;
-    private String weight;
-    private String gender;
-    private String pedigree;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -108,23 +105,13 @@ public class ChickenFragment extends Fragment implements LoaderManager.LoaderCal
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_chicken_list, container, false);
+        View view = inflater.inflate(R.layout.fragment_chicken, container, false);
 
-        attemptGetChickens();
         // Set the adapter
         if (view instanceof RecyclerView) {
             Context context = view.getContext();
             RecyclerView recyclerView = (RecyclerView) view;
-            if (mColumnCount <= 1) {
-                recyclerView.setLayoutManager(new LinearLayoutManager(context));
-            } else {
-                recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
-            }
-            Log.i("test", chickensList.get(0).getGender());
-            recyclerView.setAdapter(new MyChickenRecyclerViewAdapter(chickensList, mListener));
         }
-
-
 
         sp = getActivity().getSharedPreferences("com.tan.chicken", Context.MODE_PRIVATE);
         editor = sp.edit();
@@ -132,6 +119,7 @@ public class ChickenFragment extends Fragment implements LoaderManager.LoaderCal
         chickensRecyclerView = view.findViewById(R.id.rv_chickens);
         mProgressView = view.findViewById(R.id.chicken_progress);
         mChickenFormView = (View) chickensRecyclerView;
+        attemptGetChickens(view);
 
         return view;
     }
@@ -141,7 +129,7 @@ public class ChickenFragment extends Fragment implements LoaderManager.LoaderCal
      * If there are form errors (invalid email, missing fields, etc.), the
      * errors are presented and no actual login attempt is made.
      */
-    private void attemptGetChickens() {
+    private void attemptGetChickens(View view) {
         if (mAuthTask != null) {
             return;
         }
@@ -156,46 +144,47 @@ public class ChickenFragment extends Fragment implements LoaderManager.LoaderCal
         } else {
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
-//            showProgress(true);
-            mAuthTask = new ChickenFragment.ChickensTask(getContext());
+            showProgress(true);
+            mAuthTask = new ChickenFragment.ChickensTask(view.getContext());
             mAuthTask.execute((Void) null);
         }
     }
     /**
      * Shows the progress UI and hides the login form.
      */
-//    @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
-//    private void showProgress(final boolean show) {
-//        // On Honeycomb MR2 we have the ViewPropertyAnimator APIs, which allow
-//        // for very easy animations. If available, use these APIs to fade-in
-//        // the progress spinner.
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
-//            int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
-//
-//            mChickenFormView.setVisibility(show ? View.GONE : View.VISIBLE);
-//            mChickenFormView.animate().setDuration(shortAnimTime).alpha(
-//                    show ? 0 : 1).setListener(new AnimatorListenerAdapter() {
-//                @Override
-//                public void onAnimationEnd(Animator animation) {
-//                    mChickenFormView.setVisibility(show ? View.GONE : View.VISIBLE);
-//                }
-//            });
-//
-//            mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
-//            mProgressView.animate().setDuration(shortAnimTime).alpha(
-//                    show ? 1 : 0).setListener(new AnimatorListenerAdapter() {
-//                @Override
-//                public void onAnimationEnd(Animator animation) {
-//                    mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
-//                }
-//            });
-//        } else {
-//            // The ViewPropertyAnimator APIs are not available, so simply show
-//            // and hide the relevant UI components.
-//            mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
-//            mChickenFormView.setVisibility(show ? View.GONE : View.VISIBLE);
-//        }
-//    }
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
+    private void showProgress(final boolean show) {
+        // On Honeycomb MR2 we have the ViewPropertyAnimator APIs, which allow
+        // for very easy animations. If available, use these APIs to fade-in
+        // the progress spinner.
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
+            int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
+
+            mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
+            mProgressView.animate().setDuration(shortAnimTime).alpha(
+                    show ? 1 : 0).setListener(new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
+                }
+            });
+
+            mChickenFormView.setVisibility(show ? View.GONE : View.VISIBLE);
+            mChickenFormView.animate().setDuration(shortAnimTime).alpha(
+                    show ? 0 : 1).setListener(new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    mChickenFormView.setVisibility(show ? View.GONE : View.VISIBLE);
+                }
+            });
+
+        } else {
+            // The ViewPropertyAnimator APIs are not available, so simply show
+            // and hide the relevant UI components.
+            mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
+            mChickenFormView.setVisibility(show ? View.GONE : View.VISIBLE);
+        }
+    }
 
     @Override
     public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
@@ -230,12 +219,12 @@ public class ChickenFragment extends Fragment implements LoaderManager.LoaderCal
             Log.i("TOKEN", "GETTING CHICKENS..");
             try {
 
-                Thread.sleep(10000);
+                Thread.sleep(2000);
 //                Local IP Address
                 final String url = "http://10.10.6.24:8080/chickens";
 
                 //Emulator URL for localhost
-//                final String url = "http://10.0.2.2:8080/token/generate-token";
+//                final String url = "http://10.0.2.2:8080/chickens";
 
                 RestTemplate restTemplate = new RestTemplate();
                 restTemplate.getMessageConverters().add(new SimpleXmlHttpMessageConverter());
@@ -256,8 +245,8 @@ public class ChickenFragment extends Fragment implements LoaderManager.LoaderCal
 
         @Override
         protected void onPostExecute(final Boolean success) {
-            mAuthTask = null;
-//            showProgress(false);
+
+            onCancelled();
 
             if (success) {
 
@@ -269,8 +258,10 @@ public class ChickenFragment extends Fragment implements LoaderManager.LoaderCal
                     chickenList.add(new Gson().fromJson(chickensJSON.get(i), Chicken.class));
                 }
                 chickensList = chickenList;
-                
-                Log.i("test", chickenList.get(0).getGender());
+                ((RecyclerView)mChickenFormView).setLayoutManager(new LinearLayoutManager(context));
+                ((RecyclerView)mChickenFormView).setAdapter(new MyChickenRecyclerViewAdapter(chickensList, mListener));
+
+                Log.i("test", chickenList.get(0).getName());
                 Log.i("test", "GOT CHICKENS");
 
             } else {
@@ -281,8 +272,14 @@ public class ChickenFragment extends Fragment implements LoaderManager.LoaderCal
         @Override
         protected void onCancelled() {
             mAuthTask = null;
-//            showProgress(false);
+            showProgress(false);
         }
+    }
+
+    @Override
+    public void onAttach(Activity activity){
+        super.onAttach(activity);
+        mListener = (OnListFragmentInteractionListener) activity;
     }
 
     @Override
@@ -302,7 +299,6 @@ public class ChickenFragment extends Fragment implements LoaderManager.LoaderCal
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnListFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onListFragmentInteraction(DummyItem item);
+        void onChickenClick(int id, Chicken chicken);
     }
 }

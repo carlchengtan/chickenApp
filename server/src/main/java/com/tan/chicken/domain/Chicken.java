@@ -52,12 +52,12 @@ public class Chicken {
 	@OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
 	private Set<Sickness> sicknesses = new HashSet<Sickness>();
 	
-	@ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
+	@ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
 	private Set<FeedDetail> feedDetails = new HashSet<FeedDetail>();
-	
-	@JsonBackReference
-	@OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
-	private Set<User> pastAccountUsers = new HashSet<User>();
+//	
+//	@JsonBackReference
+//	@OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
+//	private Set<User> pastAccountUsers = new HashSet<User>();
 	
 	@JsonBackReference
 	@ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
@@ -77,22 +77,6 @@ public class Chicken {
 		super();
 	}
 	
-	public Set<User> getPastUsers() {
-		return pastAccountUsers;
-	}
-
-	public void setPastUsers(Set<User> pastUsers) {
-		this.pastAccountUsers = pastUsers;
-	}
-
-	public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
-	}
-
 	public void addFeedDetail(FeedDetail feedDetail) {
 		this.feedDetails.add(feedDetail);
 	}
@@ -105,17 +89,12 @@ public class Chicken {
 		this.sicknesses.add(sickness);
 	}
 
-	public void changeOwner(User newOwner) {
-		this.pastAccountUsers.add(this.user);
-		this.user = newOwner;
-	}	
-	
-	public String getName() {
-		return name;
+	public Long getId() {
+		return id;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public Gender getGender() {
@@ -181,6 +160,22 @@ public class Chicken {
 	public void setFeedDetails(Set<FeedDetail> feedDetails) {
 		this.feedDetails = feedDetails;
 	}
+//
+//	public Set<User> getPastAccountUsers() {
+//		return pastAccountUsers;
+//	}
+//
+//	public void setPastAccountUsers(Set<User> pastAccountUsers) {
+//		this.pastAccountUsers = pastAccountUsers;
+//	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
 
 	public BigDecimal getWeight() {
 		return weight;
@@ -188,6 +183,14 @@ public class Chicken {
 
 	public void setWeight(BigDecimal weight) {
 		this.weight = weight;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public String getOriginCountry() {
@@ -246,14 +249,6 @@ public class Chicken {
 		this.locationOfEntry = locationOfEntry;
 	}
 
-	public Long getId() {
-		return id;
-	}
-	
-	public void setId(Long id) {
-		this.id = id;
-	}
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -290,7 +285,7 @@ public class Chicken {
 		return "Chicken [id=" + id + ", gender=" + gender + ", modeOfTransportation=" + modeOfTransportation
 				+ ", birthday=" + birthday + ", dateOfExit=" + dateOfExit + ", dateOfEntry=" + dateOfEntry
 				+ ", medicalRecords=" + medicalRecords + ", sicknesses=" + sicknesses + ", feedDetails=" + feedDetails
-				+ ", pastUsers=" + pastAccountUsers + ", user=" + user + ", weight=" + weight + ", name=" + name
+				+ ", user=" + user + ", weight=" + weight + ", name=" + name
 				+ ", originCountry=" + originCountry + ", pedigree=" + pedigree + ", approvedBy=" + approvedBy
 				+ ", shipper=" + shipper + ", seller=" + seller + ", stopovers=" + stopovers + ", locationOfEntry="
 				+ locationOfEntry + "]";

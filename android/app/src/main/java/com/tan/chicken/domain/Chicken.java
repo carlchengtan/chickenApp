@@ -1,11 +1,12 @@
 package com.tan.chicken.domain;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
-public class Chicken {
+public class Chicken implements Serializable{
     private Long id;
     private String gender;
     private String modeOfTransportation;

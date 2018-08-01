@@ -51,23 +51,27 @@ public class MyChickenRecyclerViewAdapter extends RecyclerView.Adapter<MyChicken
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.fragment_chicken, parent, false);
+                .inflate(R.layout.fragment_chicken_list, parent, false);
+
         return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder holder, int position) {
+    public void onBindViewHolder(final ViewHolder holder, final int position
+    ) {
+
         Chicken chicken = chickensList.get(position);
+        Log.i("test",chicken.toString());
         holder.weightTextView.setText(chicken.getWeight().toString());
         holder.pedigreeTextView.setText(chicken.getPedigree());
         holder.genderTextView.setText(chicken.getGender());
+        Log.i("position", position+"");
+        Log.i("chicken", chickensList.get(position).getGender());
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (null != mListener) {
-                    // Notify the active callbacks interface (the activity, if the
-                    // fragment is attached to one) that an item has been selected.
-                    mListener.onListFragmentInteraction(holder.mItem);
+                if(mListener != null){
+                    mListener.onChickenClick(position, chickensList.get(position));
                 }
             }
         });
@@ -80,16 +84,14 @@ public class MyChickenRecyclerViewAdapter extends RecyclerView.Adapter<MyChicken
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        public final View mView;
-        public final TextView genderTextView;
-        public final TextView pedigreeTextView;
-        public final TextView weightTextView;
+        private final View mView;
+        private final TextView genderTextView;
+        private final TextView pedigreeTextView;
+        private final TextView weightTextView;
 
-        public DummyItem mItem;
-
-        public ViewHolder(View view) {
+        private ViewHolder(View view) {
             super(view);
-            mView = view;
+            mView = view.findViewById(R.id.cv_chickens);
             genderTextView = view.findViewById(R.id.tv_gender);
             pedigreeTextView = view.findViewById(R.id.tv_pedigree);
             weightTextView = view.findViewById(R.id.tv_weight);

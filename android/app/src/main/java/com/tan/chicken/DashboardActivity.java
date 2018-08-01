@@ -8,9 +8,14 @@ import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.tan.chicken.domain.Chicken;
+import com.tan.chicken.dummy.DummyContent;
 
-public class DashboardActivity extends AppCompatActivity {
+import java.util.List;
 
+public class DashboardActivity extends AppCompatActivity implements ChickenFragment.OnListFragmentInteractionListener{
+
+
+    private static final String ARG_CHICKEN = "CHICKEN";
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -43,4 +48,14 @@ public class DashboardActivity extends AppCompatActivity {
                 .add(R.id.fragment_container, chickenFragment).commit();
     }
 
+    @Override
+    public void onChickenClick(int id, Chicken chicken) {
+        //intent to swap fragment and view single chicken detail\
+        ChickenDetailFragment chickenDetailFragment = new ChickenDetailFragment();
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(ARG_CHICKEN, chicken);
+        chickenDetailFragment.setArguments(bundle);
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragment_container, chickenDetailFragment).commit();
+    }
 }

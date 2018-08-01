@@ -1,6 +1,8 @@
 package com.tan.chicken.domain;
 
-public class Role {
+import java.io.Serializable;
+
+public class Role implements Serializable {
 
     private long id;
     private String name;

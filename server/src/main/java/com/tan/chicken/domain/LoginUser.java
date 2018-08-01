@@ -4,8 +4,6 @@ public class LoginUser {
     private String username;
     private String password;
 
-    
-    
     public LoginUser() {
 		super();
 	}

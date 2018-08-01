@@ -56,7 +56,7 @@ public class ChickenController {
 	}
 	
 	@PreAuthorize("hasRole('ADMIN')")
-	@PostMapping("/chickens")
+	@PostMapping(value="/chickens")
 	public Chicken createChicken(@RequestBody Chicken chicken) {
 		return chickenService.save(chicken);
 	}

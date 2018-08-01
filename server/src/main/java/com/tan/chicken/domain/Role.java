@@ -18,8 +18,6 @@ public class Role {
     @Column
     private String description;
 
-    
-    
     public Role() {
 		super();
 	}

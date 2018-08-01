@@ -33,6 +33,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.tan.chicken.domain.User;
 
@@ -307,9 +308,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                                 .apply();
 
             } catch (InterruptedException e) {
-                return false;
+                Toast.makeText(context, "Check your internet connection", Toast.LENGTH_SHORT).show();
             } catch (JSONException e) {
-                return false;
+                Toast.makeText(context, "Cannot connect to server", Toast.LENGTH_SHORT).show();
             }
 
 
