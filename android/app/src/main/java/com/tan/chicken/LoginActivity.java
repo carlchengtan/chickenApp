@@ -329,6 +329,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 Log.i("TOKEN", "TOKEN GENERATED");
                 Intent i = new Intent(context, DashboardActivity.class);
                 startActivity(i);
+                finish();
             } else {
                 mPasswordView.setError(getString(R.string.error_incorrect_password));
                 mPasswordView.requestFocus();

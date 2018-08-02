@@ -12,10 +12,12 @@ import com.tan.chicken.dummy.DummyContent;
 
 import java.util.List;
 
-public class DashboardActivity extends AppCompatActivity implements ChickenFragment.OnListFragmentInteractionListener{
+public class DashboardActivity extends AppCompatActivity{
 
-
-    private static final String ARG_CHICKEN = "CHICKEN";
+    private  ChickensFragment chickensFragment;
+    private  ScanFragment scanFragment;
+//    private  ChickenDetailFragment chickenDetailFragment;
+//    private  ChickenDetailFragment chickenDetailFragment;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -24,6 +26,19 @@ public class DashboardActivity extends AppCompatActivity implements ChickenFragm
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_home:
+                    if(chickensFragment == null){
+                        chickensFragment = new ChickensFragment();
+                    }else{
+                        getSupportFragmentManager().beginTransaction()
+                                .replace(R.id.fragment_container, chickensFragment).commit();
+                    }
+                case R.id.navigation_scan:
+                    if(scanFragment == null){
+                        scanFragment = new ScanFragment();
+                    }else{
+                        getSupportFragmentManager().beginTransaction()
+                                .replace(R.id.fragment_container, scanFragment).commit();
+                    }
                     return true;
                 case R.id.navigation_locate:
                     return true;
@@ -42,20 +57,20 @@ public class DashboardActivity extends AppCompatActivity implements ChickenFragm
         BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
-        ChickenFragment chickenFragment = new ChickenFragment();
+        chickensFragment = new ChickensFragment();
 
         getSupportFragmentManager().beginTransaction()
-                .add(R.id.fragment_container, chickenFragment).commit();
+                .add(R.id.fragment_container, chickensFragment).commit();
     }
 
-    @Override
-    public void onChickenClick(int id, Chicken chicken) {
-        //intent to swap fragment and view single chicken detail\
-        ChickenDetailFragment chickenDetailFragment = new ChickenDetailFragment();
-        Bundle bundle = new Bundle();
-        bundle.putSerializable(ARG_CHICKEN, chicken);
-        chickenDetailFragment.setArguments(bundle);
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.fragment_container, chickenDetailFragment).commit();
-    }
+//    public void onChickenClick(int id, Chicken chicken) {
+//        //intent to swap fragment and view single chicken detail\
+//        chickensFragment = new ChickensFragment()Fragment();
+//        Bundle bundle = new Bundle();
+//        bundle.putSerializable(ARG_CHICKEN, chicken);
+//        chickenDetailFragment.setArguments(bundle);
+//        getSupportFragmentManager().beginTransaction()
+//                .replace(R.id.fragment_container, chickenDetailFragment).commit();
+//    }
+
 }

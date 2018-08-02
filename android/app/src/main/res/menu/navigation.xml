@@ -7,6 +7,11 @@
         android:title="@string/title_home" />
 
     <item
+        android:id="@+id/navigation_scan"
+        android:icon="@drawable/ic_scanner_black_24dp"
+        android:title="@string/title_scan" />
+
+    <item
         android:id="@+id/navigation_locate"
         android:icon="@drawable/ic_near_me_black_24dp"
         android:title="@string/title_locate" />

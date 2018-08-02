@@ -25,6 +25,7 @@
     <string name="section_chickens">Chickens</string>
     <string name="title_activity_dashboard">DashboardActivity</string>
     <string name="title_home">Home</string>
+    <string name="title_scan">Scan</string>
     <string name="title_locate">Locate</string>
     <string name="title_settings">Settings</string>
     <string name="title_notifications">Notifications</string>
