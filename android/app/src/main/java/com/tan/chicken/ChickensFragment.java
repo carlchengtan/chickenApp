@@ -47,10 +47,6 @@ public class ChickensFragment extends Fragment implements LoaderManager.LoaderCa
     public ChickensFragment() {
     }
 
-    public static ChickensFragment newInstance() {
-        return new ChickensFragment();
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,13 +58,16 @@ public class ChickensFragment extends Fragment implements LoaderManager.LoaderCa
         View view = inflater.inflate(R.layout.fragment_chickens, container, false);
 
         sp = getActivity().getSharedPreferences("com.tan.chicken", Context.MODE_PRIVATE);;
-        chickens = new ArrayList<>();
 
         chickensRecyclerView = view.findViewById(R.id.rv_chickens);
         progressView = view.findViewById(R.id.chicken_progress);
 
-        if(chickens.size() == 0){
+        if(chickens == null){
+            chickens = new ArrayList<>();
             attemptGetChickens(view);
+        }else{
+            chickensRecyclerView.setAdapter(new MyChickensRecyclerViewAdapter(chickens));
+            chickensRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         }
 
         return view;

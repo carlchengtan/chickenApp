@@ -1,110 +1,62 @@
 package com.tan.chicken;
-
-import android.app.Activity;
-import android.app.PendingIntent;
 import android.content.Context;
-import android.content.Intent;
 import android.content.IntentFilter;
-import android.net.Uri;
 import android.nfc.FormatException;
 import android.nfc.NdefMessage;
 import android.nfc.NdefRecord;
-import android.nfc.NfcAdapter;
 import android.nfc.Tag;
+import android.nfc.tech.MifareClassic;
+import android.nfc.tech.MifareUltralight;
 import android.nfc.tech.Ndef;
 import android.os.Bundle;
+import android.app.PendingIntent;
+import android.content.Intent;
+import android.nfc.NfcAdapter;
 import android.os.Parcelable;
+import android.provider.Settings;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.util.List;
 
-
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link ScanFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link ScanFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class ScanFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-    public static final String ERROR_DETECTED = "No NFC tag detected!";
-    public static final String WRITE_SUCCESS = "Text written to the NFC tag successfully!";
-    public static final String WRITE_ERROR = "Error during writing, is the NFC tag close enough to your device?";
-    NfcAdapter nfcAdapter;
-    PendingIntent pendingIntent;
+
     IntentFilter writeTagFilters[];
     boolean writeMode;
     Tag myTag;
-    Context context;
 
-    TextView tvNFCContent;
-    TextView message;
-    Button btnWrite;
+    private TextView text;
+    private EditText nfcMessage;
+    private Button writeButton;
+    private NfcAdapter nfcAdapter;
+    private PendingIntent pendingIntent;
+    private Context context;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    public static final String ERROR_DETECTED = "No NFC tag detected!";
+    public static final String WRITE_SUCCESS = "Text written to the NFC tag successfully!";
+    public static final String WRITE_ERROR = "Error during writing, is the NFC tag close enough to your device?";
 
-    private OnFragmentInteractionListener mListener;
-
-    public ScanFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment ScanFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static ScanFragment newInstance(String param1, String param2) {
-        ScanFragment fragment = new ScanFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_scan, container, false);
-
         context = view.getContext();
-        View contextView = view;
 
+        text = view.findViewById(R.id.text);
+        nfcAdapter = NfcAdapter.getDefaultAdapter(context);
+        nfcMessage = view.findViewById(R.id.nfc_message);
+        writeButton = view.findViewById(R.id.btn_write);
 
-        tvNFCContent = contextView.findViewById(R.id.nfc_contents);
-        message = contextView.findViewById(R.id.edit_message);
-        btnWrite = contextView.findViewById(R.id.button);
-
-        btnWrite.setOnClickListener(new View.OnClickListener()
+        writeButton.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v) {
@@ -112,7 +64,7 @@ public class ScanFragment extends Fragment {
                     if(myTag ==null) {
                         Toast.makeText(context, ERROR_DETECTED, Toast.LENGTH_LONG).show();
                     } else {
-                        write(message.getText().toString(), myTag);
+                        write(nfcMessage.getText().toString(), myTag);
                         Toast.makeText(context, WRITE_SUCCESS, Toast.LENGTH_LONG ).show();
                     }
                 } catch (IOException e) {
@@ -125,105 +77,214 @@ public class ScanFragment extends Fragment {
             }
         });
 
-        nfcAdapter = NfcAdapter.getDefaultAdapter(context);
+
         if (nfcAdapter == null) {
-            // Stop here, we definitely need NFC
-            Toast.makeText(getActivity(), "This device doesn't support NFC.", Toast.LENGTH_LONG).show();
+            Toast.makeText(context, "This device doesn't support NFC.", Toast.LENGTH_SHORT).show();
             getActivity().finish();
         }
-        readFromIntent(getActivity().getIntent());
 
-        pendingIntent = PendingIntent.getActivity(context, 0, new Intent(getActivity(), getClass()).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP), 0);
-        IntentFilter tagDetected = new IntentFilter(NfcAdapter.ACTION_TAG_DISCOVERED);
-        tagDetected.addCategory(Intent.CATEGORY_DEFAULT);
-        writeTagFilters = new IntentFilter[] { tagDetected };
-
-        onNewIntent(getActivity().getIntent());
+        pendingIntent = PendingIntent.getActivity(context, 0,
+                new Intent(context, getActivity().getClass())
+                        .addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP), 0);
 
         return view;
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        if (nfcAdapter != null) {
+            if (!nfcAdapter.isEnabled())
+                showWirelessSettings();
+
+            nfcAdapter.enableForegroundDispatch(getActivity(), pendingIntent, null, null);
         }
     }
 
-//    @Override
-//    public void onAttach(Context context) {
-//        super.onAttach(context);
-//        WriteModeOn();
-//        if (context instanceof OnFragmentInteractionListener) {
-//            mListener = (OnFragmentInteractionListener) context;
-//        } else {
-//            throw new RuntimeException(context.toString()
-//                    + " must implement OnFragmentInteractionListener");
-//        }
-//
-//    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        WriteModeOff();
-        mListener = null;
-    }
-
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
-    }
 
     /******************************************************************************
-     **********************************Read From NFC Tag***************************
+     **********************************Read from NFC Tag****************************
      ******************************************************************************/
-    private void readFromIntent(Intent intent) {
+    private void showWirelessSettings() {
+        Toast.makeText(context, "You need to enable NFC", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(Settings.ACTION_WIRELESS_SETTINGS);
+        startActivity(intent);
+    }
+
+    public void resolveIntent(Intent intent) {
         String action = intent.getAction();
+
         if (NfcAdapter.ACTION_TAG_DISCOVERED.equals(action)
                 || NfcAdapter.ACTION_TECH_DISCOVERED.equals(action)
                 || NfcAdapter.ACTION_NDEF_DISCOVERED.equals(action)) {
             Parcelable[] rawMsgs = intent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES);
-            NdefMessage[] msgs = null;
+            NdefMessage[] msgs;
+
+            myTag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
+
             if (rawMsgs != null) {
                 msgs = new NdefMessage[rawMsgs.length];
+
                 for (int i = 0; i < rawMsgs.length; i++) {
                     msgs[i] = (NdefMessage) rawMsgs[i];
                 }
+
+            } else {
+                byte[] empty = new byte[0];
+                byte[] id = intent.getByteArrayExtra(NfcAdapter.EXTRA_ID);
+                Tag tag = (Tag) intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
+                byte[] payload = dumpTagData(tag).getBytes();
+                NdefRecord record = new NdefRecord(NdefRecord.TNF_UNKNOWN, empty, id, payload);
+                NdefMessage msg = new NdefMessage(new NdefRecord[] {record});
+                msgs = new NdefMessage[] {msg};
             }
-            buildTagViews(msgs);
+
+            displayMsgs(msgs);
         }
     }
-    private void buildTagViews(NdefMessage[] msgs) {
-        if (msgs == null || msgs.length == 0) return;
 
-        String text = "";
-//        String tagId = new String(msgs[0].getRecords()[0].getType());
-        byte[] payload = msgs[0].getRecords()[0].getPayload();
-        String textEncoding = ((payload[0] & 128) == 0) ? "UTF-8" : "UTF-16"; // Get the Text Encoding
-        int languageCodeLength = payload[0] & 0063; // Get the Language Code, e.g. "en"
-        // String languageCode = new String(payload, 1, languageCodeLength, "US-ASCII");
+    private void displayMsgs(NdefMessage[] msgs) {
+        if (msgs == null || msgs.length == 0)
+            return;
 
-        try {
-            // Get the Text
-            text = new String(payload, languageCodeLength + 1, payload.length - languageCodeLength - 1, textEncoding);
-        } catch (UnsupportedEncodingException e) {
-            Log.e("UnsupportedEncoding", e.toString());
+        StringBuilder builder = new StringBuilder();
+        List<ParsedNdefRecord> records = NdefMessageParser.parse(msgs[0]);
+        final int size = records.size();
+
+        for (int i = 0; i < size; i++) {
+            ParsedNdefRecord record = records.get(i);
+            String str = record.str();
+            builder.append(str).append("\n");
         }
 
-        tvNFCContent.setText("NFC Content: " + text);
+        text.setText(builder.toString());
     }
 
+    private String dumpTagData(Tag tag) {
+        StringBuilder sb = new StringBuilder();
+        byte[] id = tag.getId();
+        sb.append("ID (hex): ").append(toHex(id)).append('\n');
+        sb.append("ID (reversed hex): ").append(toReversedHex(id)).append('\n');
+        sb.append("ID (dec): ").append(toDec(id)).append('\n');
+        sb.append("ID (reversed dec): ").append(toReversedDec(id)).append('\n');
+
+        String prefix = "android.nfc.tech.";
+        sb.append("Technologies: ");
+        for (String tech : tag.getTechList()) {
+            sb.append(tech.substring(prefix.length()));
+            sb.append(", ");
+        }
+
+        sb.delete(sb.length() - 2, sb.length());
+
+        for (String tech : tag.getTechList()) {
+            if (tech.equals(MifareClassic.class.getName())) {
+                sb.append('\n');
+                String type = "Unknown";
+
+                try {
+                    MifareClassic mifareTag = MifareClassic.get(tag);
+
+                    switch (mifareTag.getType()) {
+                        case MifareClassic.TYPE_CLASSIC:
+                            type = "Classic";
+                            break;
+                        case MifareClassic.TYPE_PLUS:
+                            type = "Plus";
+                            break;
+                        case MifareClassic.TYPE_PRO:
+                            type = "Pro";
+                            break;
+                    }
+                    sb.append("Mifare Classic type: ");
+                    sb.append(type);
+                    sb.append('\n');
+
+                    sb.append("Mifare size: ");
+                    sb.append(mifareTag.getSize() + " bytes");
+                    sb.append('\n');
+
+                    sb.append("Mifare sectors: ");
+                    sb.append(mifareTag.getSectorCount());
+                    sb.append('\n');
+
+                    sb.append("Mifare blocks: ");
+                    sb.append(mifareTag.getBlockCount());
+                } catch (Exception e) {
+                    sb.append("Mifare classic error: " + e.getMessage());
+                }
+            }
+
+            if (tech.equals(MifareUltralight.class.getName())) {
+                sb.append('\n');
+                MifareUltralight mifareUlTag = MifareUltralight.get(tag);
+                String type = "Unknown";
+                switch (mifareUlTag.getType()) {
+                    case MifareUltralight.TYPE_ULTRALIGHT:
+                        type = "Ultralight";
+                        break;
+                    case MifareUltralight.TYPE_ULTRALIGHT_C:
+                        type = "Ultralight C";
+                        break;
+                }
+                sb.append("Mifare Ultralight type: ");
+                sb.append(type);
+            }
+        }
+
+        return sb.toString();
+    }
+
+    private String toHex(byte[] bytes) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = bytes.length - 1; i >= 0; --i) {
+            int b = bytes[i] & 0xff;
+            if (b < 0x10)
+                sb.append('0');
+            sb.append(Integer.toHexString(b));
+            if (i > 0) {
+                sb.append(" ");
+            }
+        }
+        return sb.toString();
+    }
+
+    private String toReversedHex(byte[] bytes) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < bytes.length; ++i) {
+            if (i > 0) {
+                sb.append(" ");
+            }
+            int b = bytes[i] & 0xff;
+            if (b < 0x10)
+                sb.append('0');
+            sb.append(Integer.toHexString(b));
+        }
+        return sb.toString();
+    }
+
+    private long toDec(byte[] bytes) {
+        long result = 0;
+        long factor = 1;
+        for (int i = 0; i < bytes.length; ++i) {
+            long value = bytes[i] & 0xffl;
+            result += value * factor;
+            factor *= 256l;
+        }
+        return result;
+    }
+
+    private long toReversedDec(byte[] bytes) {
+        long result = 0;
+        long factor = 1;
+        for (int i = bytes.length - 1; i >= 0; --i) {
+            long value = bytes[i] & 0xffl;
+            result += value * factor;
+            factor *= 256l;
+        }
+        return result;
+    }
 
     /******************************************************************************
      **********************************Write to NFC Tag****************************
@@ -260,15 +321,6 @@ public class ScanFragment extends Fragment {
         return recordNFC;
     }
 
-    protected void onNewIntent(Intent intent) {
-        getActivity().setIntent(intent);
-        readFromIntent(intent);
-        if(NfcAdapter.ACTION_TAG_DISCOVERED.equals(intent.getAction())){
-            myTag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
-        }
-    }
-
-
     /******************************************************************************
      **********************************Enable Write********************************
      ******************************************************************************/
@@ -285,5 +337,4 @@ public class ScanFragment extends Fragment {
         writeMode = false;
 //        nfcAdapter.disableForegroundDispatch(getActivity());
     }
-
 }
