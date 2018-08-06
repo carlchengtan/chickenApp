@@ -13,7 +13,10 @@ export class ChangeOwnerComponent implements OnInit {
 
 	@Input() chicken: any;
 	private users: Array<any>;
-	private newOwner: any;
+	private chickenUsers: Array<any>;
+	private newUser: any;
+	private chickenId: any;
+	private userId: any;
 
 	constructor(
 		private route: ActivatedRoute,
@@ -24,13 +27,29 @@ export class ChangeOwnerComponent implements OnInit {
 
 	ngOnInit() {
 		this.users = [];
-		this.newOwner = {};
+		this.chicken = [];
+		this.chickenId = +this.route.snapshot.paramMap.get('id');
+		this.chickenUsers = [];
 		this.getOwners();
+		this.getChicken();
 	}
 
 	getOwners(): void{
 		this.chickenService.getOwners().subscribe(response => {
 			this.users = JSON.parse(response.text());
+		});
+	}
+
+	getChicken(): void{
+		this.chickenService.getOne(this.chickenId)
+		.subscribe(response => {
+			this.chicken = JSON.parse(response.text());
+			
+				this.chicken.users.forEach(element => {
+					this.chickenUsers.push(element);
+				});
+				//this.chicken.users = this.chickenUsers;
+			
 		});
 	}
 	
@@ -39,12 +58,12 @@ export class ChangeOwnerComponent implements OnInit {
 	}
 
 	save(){
-		const chickenId = +this.route.snapshot.paramMap.get('id');
-		console.log("CHICKEN ID: " + chickenId);
-		console.log("OWNER ID: " + this.newOwner.id);
-		this.chickenService.changeOwner(chickenId, this.newOwner.id)
+		this.chickenUsers.push(this.users[this.userId]);
+		this.chicken.users = this.chickenUsers;
+		this.chickenService.changeOwner(this.chicken)
 		.subscribe(response => {
 			console.log(response.text());
+			this.goBack();
 		});
 	}
 

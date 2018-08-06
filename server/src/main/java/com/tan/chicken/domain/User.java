@@ -1,6 +1,7 @@
 package com.tan.chicken.domain;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -9,9 +10,11 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
@@ -27,11 +30,10 @@ public class User {
     @JsonIgnore
     private String password;
 
-	@OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY, mappedBy = "user")
-	@JsonManagedReference
-	private Set<Chicken> chickens = new HashSet<>();
+    @JsonIgnore
+	@ManyToMany(mappedBy = "users")
+	private List<Chicken> chickens;
 	
-
 	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<Role> roles = new HashSet<Role>();
 
@@ -46,12 +48,16 @@ public class User {
 		this.password = password;
 	}
 
-	public User(String username, String password, Set<Chicken> chickens, Set<Role> roles) {
+	public User(String username, String password, List<Chicken> chickens, Set<Role> roles) {
 		super();
 		this.username = username;
 		this.password = password;
 		this.chickens = chickens;
 		this.roles = roles;
+	}
+	
+	public void deleteChicken(Chicken chicken) {
+		this.chickens.remove(chicken);
 	}
 
 	public long getId() {
@@ -82,11 +88,11 @@ public class User {
     	this.chickens.add(chicken);
     }
 
-    public Set<Chicken> getChickens() {
+    public List<Chicken> getChickens() {
 		return chickens;
 	}
 
-	public void setChickens(Set<Chicken> chickens) {
+	public void setChickens(List<Chicken> chickens) {
 		this.chickens = chickens;
 	}
 

@@ -7,9 +7,9 @@
 		</tr>
 	</thead>
 	<tbody>
-		<tr *ngFor="let user of users">
+		<tr *ngFor="let user of users; let i=index">
 			<td>
-				<input type="radio" value={{user.id}} name="id" [(ngModel)]="newOwner.id"> 
+				<input type="radio" value={{i}} name="userId" [(ngModel)]="userId"> 
 			</td>
 			<td>
 				{{user.username}}

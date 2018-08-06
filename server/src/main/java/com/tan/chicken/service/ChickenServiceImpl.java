@@ -41,9 +41,10 @@ public class ChickenServiceImpl implements IChickenService{
 	}
 
 	@Override
-	public Chicken changeOwner(Long chickenId, Long ownerId) {
+	public Chicken changeOwner(Long chickenId, Long userId) {
 		Chicken chicken = chickenRepository.findById(chickenId).get();
-		User owner = userRepository.findById(ownerId).get();
+		User user = userRepository.findById(userId).get();
+		chicken.addUser(user);
 		return chickenRepository.save(chicken);
 	}
 

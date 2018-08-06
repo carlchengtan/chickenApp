@@ -3,6 +3,7 @@ package com.tan.chicken.domain;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -13,14 +14,16 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Entity
@@ -55,13 +58,16 @@ public class Chicken {
 	@ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
 	private Set<FeedDetail> feedDetails = new HashSet<FeedDetail>();
 //	
+	@ManyToMany(cascade = { CascadeType.PERSIST})
+    @JoinTable(
+        name = "chicken_account_user", 
+        joinColumns = { @JoinColumn(name = "chicken_id") }, 
+        inverseJoinColumns = { @JoinColumn(name = "account_user_id") }
+    )
+	private List<User> users;
 //	@JsonBackReference
-//	@OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
-//	private Set<User> pastAccountUsers = new HashSet<User>();
-	
-	@JsonBackReference
-	@ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
-	private User user;
+//	@ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
+//	private User user;
 	
 	private BigDecimal weight;
 	private String name;
@@ -72,6 +78,8 @@ public class Chicken {
 	private String seller;
 	private String stopovers;
 	private String locationOfEntry;
+	private String rfid;
+	private String lastLocation;
 	
 	public Chicken() {
 		super();
@@ -88,6 +96,14 @@ public class Chicken {
 	public void addSickness(Sickness sickness) {
 		this.sicknesses.add(sickness);
 	}
+	
+	public void addUser(User user) {
+		this.users.add(user);
+	}
+//	
+//	public User getPastUser() {
+//		return this.pastUsers.get(this.pastUsers.size()-1);
+//	}
 
 	public Long getId() {
 		return id;
@@ -160,21 +176,13 @@ public class Chicken {
 	public void setFeedDetails(Set<FeedDetail> feedDetails) {
 		this.feedDetails = feedDetails;
 	}
-//
-//	public Set<User> getPastAccountUsers() {
-//		return pastAccountUsers;
-//	}
-//
-//	public void setPastAccountUsers(Set<User> pastAccountUsers) {
-//		this.pastAccountUsers = pastAccountUsers;
-//	}
 
-	public User getUser() {
-		return user;
+	public List<User> getUsers() {
+		return users;
 	}
 
-	public void setUser(User user) {
-		this.user = user;
+	public void setUsers(List<User> users) {
+		this.users = users;
 	}
 
 	public BigDecimal getWeight() {
@@ -249,46 +257,20 @@ public class Chicken {
 		this.locationOfEntry = locationOfEntry;
 	}
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + ((name == null) ? 0 : name.hashCode());
-		return result;
+	public String getRfid() {
+		return rfid;
 	}
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Chicken other = (Chicken) obj;
-		if (id == null) {
-			if (other.id != null)
-				return false;
-		} else if (!id.equals(other.id))
-			return false;
-		if (name == null) {
-			if (other.name != null)
-				return false;
-		} else if (!name.equals(other.name))
-			return false;
-		return true;
+	public void setRfid(String rfid) {
+		this.rfid = rfid;
 	}
 
-	@Override
-	public String toString() {
-		return "Chicken [id=" + id + ", gender=" + gender + ", modeOfTransportation=" + modeOfTransportation
-				+ ", birthday=" + birthday + ", dateOfExit=" + dateOfExit + ", dateOfEntry=" + dateOfEntry
-				+ ", medicalRecords=" + medicalRecords + ", sicknesses=" + sicknesses + ", feedDetails=" + feedDetails
-				+ ", user=" + user + ", weight=" + weight + ", name=" + name
-				+ ", originCountry=" + originCountry + ", pedigree=" + pedigree + ", approvedBy=" + approvedBy
-				+ ", shipper=" + shipper + ", seller=" + seller + ", stopovers=" + stopovers + ", locationOfEntry="
-				+ locationOfEntry + "]";
+	public String getLastLocation() {
+		return lastLocation;
+	}
+
+	public void setLastLocation(String lastLocation) {
+		this.lastLocation = lastLocation;
 	}
 	
 }

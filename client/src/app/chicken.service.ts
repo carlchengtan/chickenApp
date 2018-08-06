@@ -63,9 +63,10 @@ export class ChickenService {
 			this.getOptions(false));
 	}
 
-	changeOwner(chickenId: any, ownerId: any){
-		return this.http.put(this.CHICKEN_API + '/' + chickenId + 
-			'/' + ownerId, null, this.getOptions(false));
+	changeOwner(chicken: any){
+		// return this.http.put(this.CHICKEN_API + '/' + chickenId + 
+		// 	'/' + ownerId, null, this.getOptions(false));
+		return this.save(chicken);
 	}
 
 	getOptions(withJson: any): RequestOptions{

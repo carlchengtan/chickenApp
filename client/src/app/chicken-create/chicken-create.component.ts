@@ -17,10 +17,12 @@ export class ChickenCreateComponent implements OnInit {
 	private meds: Array<any>;
 	private sicknesses: Array<any>;
 	private feeds: Array<any>
+	private owners: Array<any>
 
 	private newMed: any;
 	private newSickness: any;
 	private newFeed: any;
+	private newOwner: any;
 
 	constructor(
 		private route: ActivatedRoute,
@@ -35,16 +37,19 @@ export class ChickenCreateComponent implements OnInit {
 		this.meds = [];
 		this.sicknesses = [];
 		this.feeds = [];
+		this.owners = [];
 
 		this.newMed = {};
 		this.newSickness = {};
 		this.newFeed = {};
+		this.newOwner = {};
 	}
 
 	save(): void{
 		this.chicken.medicalRecords = this.meds;
 		this.chicken.sicknesses = this.sicknesses;
 		this.chicken.feedDetails = this.feeds;
+		this.chicken.users = this.owners;
 		console.log(this.chicken);
 
 		this.chickenService.save(this.chicken)
