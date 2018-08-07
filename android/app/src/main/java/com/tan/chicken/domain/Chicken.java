@@ -1,23 +1,33 @@
 package com.tan.chicken.domain;
 
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
+import android.support.annotation.NonNull;
+
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 
+@Entity
 public class Chicken implements Serializable{
+
     private Long id;
     private String gender;
     private String modeOfTransportation;
     private Date birthday;
     private Date dateOfExit;
     private Date dateOfEntry;
-    private Set<MedicalRecord> medicalRecords = new HashSet<MedicalRecord>();
-    private Set<Sickness> sicknesses = new HashSet<Sickness>();
-    private Set<FeedDetail> feedDetails = new HashSet<FeedDetail>();
-    private Set<User> pastAccountUsers = new HashSet<User>();
-    private User user;
+
+    //@Relation(parentColumn = "id", entityColumn = "medicalRecordId", entity = MedicalRecord.class)
+    private List<MedicalRecord> medicalRecords;
+    //@Relation(parentColumn = "id", entityColumn = "sicknessId", entity = Sickness.class)
+    private List<Sickness> sicknesses;
+    //@Relation(parentColumn = "id", entityColumn = "feedDetailId", entity = FeedDetail.class)
+    private List<FeedDetail> feedDetails;
+    //@Relation(parentColumn = "id", entityColumn = "userId", entity = User.class)
+    private List<User> users;
+
     private BigDecimal weight;
     private String name;
     private String originCountry;
@@ -27,8 +37,10 @@ public class Chicken implements Serializable{
     private String seller;
     private String stopovers;
     private String locationOfEntry;
+    private String rfid;
+    private String lastLocation;
 
-    public Chicken(Long id, String gender, String modeOfTransportation, Date birthday, Date dateOfExit, Date dateOfEntry, Set<MedicalRecord> medicalRecords, Set<Sickness> sicknesses, Set<FeedDetail> feedDetails, Set<User> pastAccountUsers, User user, BigDecimal weight, String name, String originCountry, String pedigree, String approvedBy, String shipper, String seller, String stopovers, String locationOfEntry) {
+    public Chicken(@NonNull Long id, String gender, String modeOfTransportation, Date birthday, Date dateOfExit, Date dateOfEntry, List<MedicalRecord> medicalRecords, List<Sickness> sicknesses, List<FeedDetail> feedDetails, List<User> users, BigDecimal weight, String name, String originCountry, String pedigree, String approvedBy, String shipper, String seller, String stopovers, String locationOfEntry, String rfid, String lastLocation) {
         this.id = id;
         this.gender = gender;
         this.modeOfTransportation = modeOfTransportation;
@@ -38,8 +50,7 @@ public class Chicken implements Serializable{
         this.medicalRecords = medicalRecords;
         this.sicknesses = sicknesses;
         this.feedDetails = feedDetails;
-        this.pastAccountUsers = pastAccountUsers;
-        this.user = user;
+        this.users = users;
         this.weight = weight;
         this.name = name;
         this.originCountry = originCountry;
@@ -49,13 +60,19 @@ public class Chicken implements Serializable{
         this.seller = seller;
         this.stopovers = stopovers;
         this.locationOfEntry = locationOfEntry;
+        this.rfid = rfid;
+        this.lastLocation = lastLocation;
     }
 
+    public Chicken() {
+    }
+
+    @NonNull
     public Long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(@NonNull Long id) {
         this.id = id;
     }
 
@@ -99,44 +116,36 @@ public class Chicken implements Serializable{
         this.dateOfEntry = dateOfEntry;
     }
 
-    public Set<MedicalRecord> getMedicalRecords() {
+    public List<MedicalRecord> getMedicalRecords() {
         return medicalRecords;
     }
 
-    public void setMedicalRecords(Set<MedicalRecord> medicalRecords) {
+    public void setMedicalRecords(List<MedicalRecord> medicalRecords) {
         this.medicalRecords = medicalRecords;
     }
 
-    public Set<Sickness> getSicknesses() {
+    public List<Sickness> getSicknesses() {
         return sicknesses;
     }
 
-    public void setSicknesses(Set<Sickness> sicknesses) {
+    public void setSicknesses(List<Sickness> sicknesses) {
         this.sicknesses = sicknesses;
     }
 
-    public Set<FeedDetail> getFeedDetails() {
+    public List<FeedDetail> getFeedDetails() {
         return feedDetails;
     }
 
-    public void setFeedDetails(Set<FeedDetail> feedDetails) {
+    public void setFeedDetails(List<FeedDetail> feedDetails) {
         this.feedDetails = feedDetails;
     }
 
-    public Set<User> getPastAccountUsers() {
-        return pastAccountUsers;
+    public List<User> getUsers() {
+        return users;
     }
 
-    public void setPastAccountUsers(Set<User> pastAccountUsers) {
-        this.pastAccountUsers = pastAccountUsers;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
+    public void setUsers(List<User> users) {
+        this.users = users;
     }
 
     public BigDecimal getWeight() {
@@ -210,4 +219,21 @@ public class Chicken implements Serializable{
     public void setLocationOfEntry(String locationOfEntry) {
         this.locationOfEntry = locationOfEntry;
     }
+
+    public String getRfid() {
+        return rfid;
+    }
+
+    public void setRfid(String rfid) {
+        this.rfid = rfid;
+    }
+
+    public String getLastLocation() {
+        return lastLocation;
+    }
+
+    public void setLastLocation(String lastLocation) {
+        this.lastLocation = lastLocation;
+    }
 }
+

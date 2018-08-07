@@ -37,6 +37,9 @@
     <string name="title_dashboard">Dashboard</string>
     <string name="sample_text">Sample Text</string>
 
+    <string name="assign_chicken">ASSIGN</string>
+    <string name="prompt_scan_rfid">Hold a tag against the back of your device</string>
+
     <!--MIFARE-->
     <string name="message_nfc_not_enabled">NFC IS NOT ENABLED!</string>
     <string name="message_nfc_not_supported">NFC IS NOT SUPPORTED!</string>

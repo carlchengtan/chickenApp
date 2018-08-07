@@ -10,8 +10,11 @@
         android:id="@+id/cv_chickens"
         android:layout_marginLeft="@dimen/activity_vertical_margin_half"
         android:layout_marginRight="@dimen/activity_vertical_margin_half"
-        android:layout_marginTop="@dimen/activity_vertical_margin_half"
-        app:cardElevation="3dp"
+        android:layout_marginBottom="@dimen/activity_vertical_margin_fourth"
+        app:cardElevation="0dp"
+        android:layout_gravity="center"
+        android:focusable="true"
+        android:foreground="?android:selectableItemBackground"
         >
 
         <LinearLayout
