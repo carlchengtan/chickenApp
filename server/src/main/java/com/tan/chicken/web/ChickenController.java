@@ -71,8 +71,29 @@ public class ChickenController {
 	@PreAuthorize("hasRole('ADMIN')")
 	@PutMapping("/chickens/{chickenId}/{ownerId}")
 	public Chicken changeOwner(@PathVariable Long chickenId, @PathVariable Long ownerId) {
-		System.out.println("#################"+chickenId+ownerId);
 		return chickenService.changeOwner(chickenId, ownerId);
+	}
+	
+	@PreAuthorize("hasRole('ADMIN')")
+	@GetMapping("/chickens/{rfid}")
+	public Chicken findByRfid(@PathVariable String rfid) {
+		return chickenService.findByRfid(rfid).get();
+	}
+
+	@PreAuthorize("hasRole('ADMIN')")
+	@PutMapping("/chickens/assignRfid/{chickenId}/{rfid}")
+	public Chicken assignRfid(@PathVariable Long chickenId, @PathVariable String rfid) {
+		Chicken chicken = chickenService.findById(chickenId).get();
+		chicken.setRfid(rfid);
+		return chickenService.save(chicken);
+	}
+	
+	@PreAuthorize("hasRole('ADMIN')")
+	@PutMapping("/chickens/removeRfid/{chickenId}")
+	public Chicken removeRfid(@PathVariable Long chickenId) {
+		Chicken chicken = chickenService.findById(chickenId).get();
+		chicken.setRfid("");
+		return chickenService.save(chicken);
 	}
 	
 }

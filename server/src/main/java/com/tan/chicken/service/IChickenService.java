@@ -7,6 +7,7 @@ import com.tan.chicken.domain.Chicken;
 public interface IChickenService {
 	public List<Chicken> findAll();
 	public Optional<Chicken> findById(Long id);
+	public Optional<Chicken> findByRfid(String rfid);
 	public Chicken save(Chicken chicken);
 	public void deleteById(Long id);
 	public Chicken changeOwner(Long chickenId, Long ownerId);

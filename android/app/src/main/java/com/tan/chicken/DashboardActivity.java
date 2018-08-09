@@ -29,6 +29,7 @@ public class DashboardActivity extends AppCompatActivity{
                     if(scanFragment == null){
                         scanFragment = new ScanFragment();
                     }
+                    scanFragment.setChickens(chickensFragment.sendChickens());
                     getSupportFragmentManager().beginTransaction()
                             .replace(R.id.fragment_container, scanFragment).commit();
                     return true;

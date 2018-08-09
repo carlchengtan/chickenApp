@@ -29,6 +29,11 @@ public class ChickenServiceImpl implements IChickenService{
 	public Optional<Chicken> findById(Long id) {
 		return chickenRepository.findById(id);
 	}
+	
+	@Override
+	public Optional<Chicken> findByRfid(String rfid) {
+		return chickenRepository.findByRfid(rfid);
+	}
 
 	@Override
 	public Chicken save(Chicken chicken) {
